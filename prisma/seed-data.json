@@ -1,0 +1,4421 @@
+{
+  "anio": 2026,
+  "meses": [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre"
+  ],
+  "categorias": [
+    {
+      "nombre": "Sueldo",
+      "tipo": "INGRESO"
+    },
+    {
+      "nombre": "Prestamos Caja",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Arriendo",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Luz",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Agua",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Prestamos",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Celular wom",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Celular entel",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Internet Casa",
+      "tipo": "GASTO",
+      "marcado_bajar": true
+    },
+    {
+      "nombre": "carreteras",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "celular gina",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Bencina Mensual",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Estudios",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Colegio Lucas Y javi",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Per.Cir. Y PRT",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Mercaderia",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Compra de Agua Bidon",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Movilizacion colegios",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Seguro Comple",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Pan",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Colacion",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Plata a Gina",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Mantencion Auto",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Gas",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Cuota Lucas",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Cuota Javi",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Seguro dental",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Netflix",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Ondrive365",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Google One",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Gimnasio",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Comida(sushi) o esparcimiento",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Posibles Gastos",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Cuota Auto",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Pie",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Celular Movistar",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Mercado Libre",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Viaje Carola",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Compras festividades",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "ChatGPT",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    },
+    {
+      "nombre": "Ahorro",
+      "tipo": "GASTO",
+      "marcado_bajar": false
+    }
+  ],
+  "presupuestos": [
+    {
+      "categoria": "Sueldo",
+      "mes": 1,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Sueldo",
+      "mes": 2,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Sueldo",
+      "mes": 3,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Sueldo",
+      "mes": 4,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Sueldo",
+      "mes": 5,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Sueldo",
+      "mes": 6,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Sueldo",
+      "mes": 7,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Sueldo",
+      "mes": 8,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Sueldo",
+      "mes": 9,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Sueldo",
+      "mes": 10,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Sueldo",
+      "mes": 11,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Sueldo",
+      "mes": 12,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 1,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 2,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 3,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 4,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 5,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 6,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 7,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 8,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 9,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 10,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 11,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 12,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 1,
+      "monto": 380000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 2,
+      "monto": 380000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 3,
+      "monto": 380000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 4,
+      "monto": 380000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 5,
+      "monto": 380000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 6,
+      "monto": 380000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 7,
+      "monto": 380000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 8,
+      "monto": 380000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 9,
+      "monto": 380000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 10,
+      "monto": 380000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 11,
+      "monto": 380000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 12,
+      "monto": 380000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 1,
+      "monto": 150000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 2,
+      "monto": 150000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 3,
+      "monto": 150000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 4,
+      "monto": 160000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 5,
+      "monto": 170000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 6,
+      "monto": 170000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 7,
+      "monto": 170000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 8,
+      "monto": 160000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 9,
+      "monto": 150000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 10,
+      "monto": 150000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 11,
+      "monto": 150000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 12,
+      "monto": 150000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 1,
+      "monto": 35000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 2,
+      "monto": 35000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 3,
+      "monto": 30000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 4,
+      "monto": 25000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 5,
+      "monto": 25000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 6,
+      "monto": 25000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 7,
+      "monto": 25000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 8,
+      "monto": 25000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 9,
+      "monto": 25000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 10,
+      "monto": 25000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 11,
+      "monto": 25000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 12,
+      "monto": 35000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos",
+      "mes": 1,
+      "monto": 55746,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos",
+      "mes": 2,
+      "monto": 55746,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 1,
+      "monto": 19760,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 2,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 3,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 4,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 5,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 6,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 7,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 8,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 9,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 10,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 11,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 12,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 1,
+      "monto": 119018,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 2,
+      "monto": 119018,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 3,
+      "monto": 119018,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 4,
+      "monto": 119018,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 5,
+      "monto": 92399,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 6,
+      "monto": 92399,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 7,
+      "monto": 92399,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 8,
+      "monto": 92399,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 9,
+      "monto": 92399,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 10,
+      "monto": 92399,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 11,
+      "monto": 92399,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 12,
+      "monto": 92399,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 1,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 2,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 3,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 4,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 5,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 6,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 7,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 8,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 9,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 10,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 11,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 12,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "carreteras",
+      "mes": 1,
+      "monto": 10000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "carreteras",
+      "mes": 2,
+      "monto": 10000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "carreteras",
+      "mes": 3,
+      "monto": 10000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "carreteras",
+      "mes": 4,
+      "monto": 10000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "carreteras",
+      "mes": 5,
+      "monto": 10000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "carreteras",
+      "mes": 6,
+      "monto": 10000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "carreteras",
+      "mes": 7,
+      "monto": 10000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "carreteras",
+      "mes": 8,
+      "monto": 10000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "carreteras",
+      "mes": 9,
+      "monto": 10000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "carreteras",
+      "mes": 10,
+      "monto": 10000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "carreteras",
+      "mes": 11,
+      "monto": 10000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "carreteras",
+      "mes": 12,
+      "monto": 10000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 1,
+      "monto": 9990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 2,
+      "monto": 9990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 3,
+      "monto": 9990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 4,
+      "monto": 9990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 5,
+      "monto": 9990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 6,
+      "monto": 9990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 7,
+      "monto": 9990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 8,
+      "monto": 9990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 9,
+      "monto": 9990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 10,
+      "monto": 9990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 11,
+      "monto": 9990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 12,
+      "monto": 9990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 1,
+      "monto": 350000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 2,
+      "monto": 350000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 3,
+      "monto": 350000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 4,
+      "monto": 350000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 5,
+      "monto": 350000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 6,
+      "monto": 350000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 7,
+      "monto": 350000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 8,
+      "monto": 350000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 9,
+      "monto": 350000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 10,
+      "monto": 350000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 11,
+      "monto": 350000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 12,
+      "monto": 350000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Estudios",
+      "mes": 1,
+      "monto": 97000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Estudios",
+      "mes": 2,
+      "monto": 97000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Estudios",
+      "mes": 3,
+      "monto": 97000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Estudios",
+      "mes": 4,
+      "monto": 97000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Estudios",
+      "mes": 5,
+      "monto": 97000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Estudios",
+      "mes": 6,
+      "monto": 97000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Estudios",
+      "mes": 7,
+      "monto": 201000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Estudios",
+      "mes": 8,
+      "monto": 201000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Estudios",
+      "mes": 9,
+      "monto": 201000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Estudios",
+      "mes": 10,
+      "monto": 104000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Estudios",
+      "mes": 11,
+      "monto": 104000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Estudios",
+      "mes": 12,
+      "monto": 104000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colegio Lucas Y javi",
+      "mes": 2,
+      "monto": 242000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colegio Lucas Y javi",
+      "mes": 3,
+      "monto": 242000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colegio Lucas Y javi",
+      "mes": 4,
+      "monto": 242000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colegio Lucas Y javi",
+      "mes": 5,
+      "monto": 242000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colegio Lucas Y javi",
+      "mes": 6,
+      "monto": 242000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colegio Lucas Y javi",
+      "mes": 7,
+      "monto": 242000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colegio Lucas Y javi",
+      "mes": 8,
+      "monto": 242000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colegio Lucas Y javi",
+      "mes": 9,
+      "monto": 242000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colegio Lucas Y javi",
+      "mes": 10,
+      "monto": 242000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colegio Lucas Y javi",
+      "mes": 11,
+      "monto": 242000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colegio Lucas Y javi",
+      "mes": 12,
+      "monto": 242000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Per.Cir. Y PRT",
+      "mes": 3,
+      "monto": 35000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 1,
+      "monto": 250000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 2,
+      "monto": 250000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 3,
+      "monto": 250000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 4,
+      "monto": 250000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 5,
+      "monto": 250000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 6,
+      "monto": 250000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 7,
+      "monto": 250000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 8,
+      "monto": 250000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 9,
+      "monto": 250000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 10,
+      "monto": 250000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 11,
+      "monto": 250000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 12,
+      "monto": 250000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 1,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 2,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 3,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 4,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 5,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 6,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 7,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 8,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 9,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 10,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 11,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 12,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Movilizacion colegios",
+      "mes": 3,
+      "monto": 35000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Movilizacion colegios",
+      "mes": 4,
+      "monto": 35000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Movilizacion colegios",
+      "mes": 5,
+      "monto": 35000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Movilizacion colegios",
+      "mes": 6,
+      "monto": 35000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Movilizacion colegios",
+      "mes": 7,
+      "monto": 35000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Movilizacion colegios",
+      "mes": 8,
+      "monto": 35000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Movilizacion colegios",
+      "mes": 9,
+      "monto": 35000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Movilizacion colegios",
+      "mes": 10,
+      "monto": 35000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Movilizacion colegios",
+      "mes": 11,
+      "monto": 35000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Movilizacion colegios",
+      "mes": 12,
+      "monto": 35000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 1,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 2,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 3,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 4,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 5,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 6,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 7,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 8,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 9,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 10,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 11,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 12,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 1,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 2,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 3,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 4,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 5,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 6,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 7,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 8,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 9,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 10,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 11,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 12,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 1,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 2,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 3,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 4,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 5,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 6,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 7,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 8,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 9,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 10,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 11,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 12,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 1,
+      "monto": 153500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 2,
+      "monto": 153500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 3,
+      "monto": 153500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 4,
+      "monto": 153500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 5,
+      "monto": 153500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 6,
+      "monto": 153500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 7,
+      "monto": 153500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 8,
+      "monto": 153500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 9,
+      "monto": 153500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 10,
+      "monto": 153500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 11,
+      "monto": 153500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 12,
+      "monto": 153500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mantencion Auto",
+      "mes": 2,
+      "monto": 140000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mantencion Auto",
+      "mes": 5,
+      "monto": 140000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mantencion Auto",
+      "mes": 7,
+      "monto": 140000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mantencion Auto",
+      "mes": 12,
+      "monto": 100000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 1,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 2,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 3,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 4,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 5,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 6,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 7,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 8,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 9,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 10,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 11,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 12,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Lucas",
+      "mes": 3,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Lucas",
+      "mes": 4,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Lucas",
+      "mes": 5,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Lucas",
+      "mes": 6,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Lucas",
+      "mes": 7,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Lucas",
+      "mes": 8,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Lucas",
+      "mes": 9,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Lucas",
+      "mes": 10,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Lucas",
+      "mes": 11,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Lucas",
+      "mes": 12,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Javi",
+      "mes": 3,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Javi",
+      "mes": 4,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Javi",
+      "mes": 5,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Javi",
+      "mes": 6,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Javi",
+      "mes": 7,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Javi",
+      "mes": 8,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Javi",
+      "mes": 9,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Javi",
+      "mes": 10,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Javi",
+      "mes": 11,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Javi",
+      "mes": 12,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 1,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 2,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 3,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 4,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 5,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 6,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 7,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 8,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 9,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 10,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 11,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 12,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 1,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 2,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 3,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 4,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 5,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 6,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 7,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 8,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 9,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 10,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 11,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 12,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ondrive365",
+      "mes": 1,
+      "monto": 8490,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ondrive365",
+      "mes": 2,
+      "monto": 4990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ondrive365",
+      "mes": 3,
+      "monto": 4990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ondrive365",
+      "mes": 4,
+      "monto": 4990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ondrive365",
+      "mes": 5,
+      "monto": 4990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ondrive365",
+      "mes": 6,
+      "monto": 4990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ondrive365",
+      "mes": 7,
+      "monto": 4990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ondrive365",
+      "mes": 8,
+      "monto": 4990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ondrive365",
+      "mes": 9,
+      "monto": 4990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ondrive365",
+      "mes": 10,
+      "monto": 4990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ondrive365",
+      "mes": 11,
+      "monto": 4990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ondrive365",
+      "mes": 12,
+      "monto": 4990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 1,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 2,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 3,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 4,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 5,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 6,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 7,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 8,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 9,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 10,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 11,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 12,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gimnasio",
+      "mes": 1,
+      "monto": 60000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gimnasio",
+      "mes": 2,
+      "monto": 60000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gimnasio",
+      "mes": 3,
+      "monto": 60000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gimnasio",
+      "mes": 4,
+      "monto": 60000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gimnasio",
+      "mes": 5,
+      "monto": 60000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gimnasio",
+      "mes": 6,
+      "monto": 60000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gimnasio",
+      "mes": 7,
+      "monto": 60000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gimnasio",
+      "mes": 8,
+      "monto": 60000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gimnasio",
+      "mes": 9,
+      "monto": 60000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gimnasio",
+      "mes": 10,
+      "monto": 60000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gimnasio",
+      "mes": 11,
+      "monto": 60000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gimnasio",
+      "mes": 12,
+      "monto": 60000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Comida(sushi) o esparcimiento",
+      "mes": 1,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Comida(sushi) o esparcimiento",
+      "mes": 2,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Comida(sushi) o esparcimiento",
+      "mes": 3,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Comida(sushi) o esparcimiento",
+      "mes": 4,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Comida(sushi) o esparcimiento",
+      "mes": 5,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Comida(sushi) o esparcimiento",
+      "mes": 6,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Comida(sushi) o esparcimiento",
+      "mes": 7,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Comida(sushi) o esparcimiento",
+      "mes": 8,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Comida(sushi) o esparcimiento",
+      "mes": 9,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Comida(sushi) o esparcimiento",
+      "mes": 10,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Comida(sushi) o esparcimiento",
+      "mes": 11,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Comida(sushi) o esparcimiento",
+      "mes": 12,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Posibles Gastos",
+      "mes": 3,
+      "monto": 2500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Auto",
+      "mes": 3,
+      "monto": 44480,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Auto",
+      "mes": 5,
+      "monto": "%",
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Auto",
+      "mes": 6,
+      "monto": 1,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Auto",
+      "mes": 7,
+      "monto": 2,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Auto",
+      "mes": 8,
+      "monto": 3,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pie",
+      "mes": 3,
+      "monto": 4448,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pie",
+      "mes": 5,
+      "monto": 1,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pie",
+      "mes": 6,
+      "monto": 1160000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pie",
+      "mes": 7,
+      "monto": 870000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pie",
+      "mes": 8,
+      "monto": 870000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pie",
+      "mes": 9,
+      "monto": 2900000,
+      "tipo": "GASTO"
+    }
+  ],
+  "movimientos_historicos": [
+    {
+      "categoria": "Sueldo",
+      "mes": 1,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Sueldo",
+      "mes": 2,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Sueldo",
+      "mes": 3,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Sueldo",
+      "mes": 4,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Sueldo",
+      "mes": 5,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Sueldo",
+      "mes": 6,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Sueldo",
+      "mes": 7,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Sueldo",
+      "mes": 8,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Sueldo",
+      "mes": 9,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Sueldo",
+      "mes": 10,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Sueldo",
+      "mes": 11,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Sueldo",
+      "mes": 12,
+      "monto": 2900000,
+      "tipo": "INGRESO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 1,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 2,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 3,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 4,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 5,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 6,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 7,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 8,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 9,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 10,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 11,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos Caja",
+      "mes": 12,
+      "monto": 426059,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 1,
+      "monto": 380000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 2,
+      "monto": 440000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 3,
+      "monto": 440000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 4,
+      "monto": 440000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 5,
+      "monto": 440000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 6,
+      "monto": 440000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 7,
+      "monto": 440000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 8,
+      "monto": 440000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 9,
+      "monto": 440000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 10,
+      "monto": 440000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 11,
+      "monto": 440000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Arriendo",
+      "mes": 12,
+      "monto": 440000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 1,
+      "monto": 89300,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 2,
+      "monto": 125800,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 3,
+      "monto": 133500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 4,
+      "monto": 118400,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 5,
+      "monto": 95200,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 6,
+      "monto": 104600,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 7,
+      "monto": 150000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 8,
+      "monto": 160000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 9,
+      "monto": 150000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 10,
+      "monto": 150000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 11,
+      "monto": 150000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Luz",
+      "mes": 12,
+      "monto": 150000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 1,
+      "monto": 29110,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 2,
+      "monto": 35700,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 3,
+      "monto": 27640,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 4,
+      "monto": 27430,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 5,
+      "monto": 30740,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 6,
+      "monto": 24170,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 7,
+      "monto": 30000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 8,
+      "monto": 30000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 9,
+      "monto": 30000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 10,
+      "monto": 30000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 11,
+      "monto": 30000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Agua",
+      "mes": 12,
+      "monto": 30000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos",
+      "mes": 1,
+      "monto": 155746,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos",
+      "mes": 2,
+      "monto": 55746,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos",
+      "mes": 3,
+      "monto": 104272,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos",
+      "mes": 4,
+      "monto": 104272,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos",
+      "mes": 5,
+      "monto": 104272,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos",
+      "mes": 6,
+      "monto": 134272,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos",
+      "mes": 7,
+      "monto": 104272,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos",
+      "mes": 8,
+      "monto": 104272,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos",
+      "mes": 9,
+      "monto": 104272,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos",
+      "mes": 10,
+      "monto": 104272,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos",
+      "mes": 11,
+      "monto": 104272,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Prestamos",
+      "mes": 12,
+      "monto": 104272,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 1,
+      "monto": 15430,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 2,
+      "monto": 17210,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 3,
+      "monto": 17210,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 4,
+      "monto": 15430,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 5,
+      "monto": 11775,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 6,
+      "monto": 32506,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 7,
+      "monto": 23000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 8,
+      "monto": 15000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 9,
+      "monto": 15000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 10,
+      "monto": 15000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 11,
+      "monto": 15000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular wom",
+      "mes": 12,
+      "monto": 15000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 1,
+      "monto": 107028,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 2,
+      "monto": 84038,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 3,
+      "monto": 71199,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 4,
+      "monto": 79542,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 5,
+      "monto": 52923,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 6,
+      "monto": 52923,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 7,
+      "monto": 52923,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 8,
+      "monto": 52923,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 9,
+      "monto": 52923,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 10,
+      "monto": 52923,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 11,
+      "monto": 52923,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular entel",
+      "mes": 12,
+      "monto": 52923,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 1,
+      "monto": 37781,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 2,
+      "monto": 34307,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 3,
+      "monto": 23862,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 4,
+      "monto": 28523,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 5,
+      "monto": 23172,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 6,
+      "monto": 23538,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 7,
+      "monto": 23862,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 8,
+      "monto": 23862,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 9,
+      "monto": 23862,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 10,
+      "monto": 23862,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 11,
+      "monto": 23862,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Internet Casa",
+      "mes": 12,
+      "monto": 23862,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "carreteras",
+      "mes": 2,
+      "monto": 11940,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "carreteras",
+      "mes": 3,
+      "monto": 4510,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "carreteras",
+      "mes": 4,
+      "monto": 26351,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 1,
+      "monto": 9990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 2,
+      "monto": 9990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 3,
+      "monto": 9990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 4,
+      "monto": 9990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 5,
+      "monto": 9990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 6,
+      "monto": 9093,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 7,
+      "monto": 9990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 8,
+      "monto": 9990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 9,
+      "monto": 9990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 10,
+      "monto": 9990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 11,
+      "monto": 9990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "celular gina",
+      "mes": 12,
+      "monto": 9990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 1,
+      "monto": 280000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 2,
+      "monto": 280000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 3,
+      "monto": 300000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 4,
+      "monto": 309000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 5,
+      "monto": 380000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 6,
+      "monto": 400000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 7,
+      "monto": 380000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 8,
+      "monto": 380000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 9,
+      "monto": 380000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 10,
+      "monto": 380000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 11,
+      "monto": 380000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Bencina Mensual",
+      "mes": 12,
+      "monto": 380000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Estudios",
+      "mes": 1,
+      "monto": 97000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Estudios",
+      "mes": 8,
+      "monto": 104000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colegio Lucas Y javi",
+      "mes": 2,
+      "monto": 219260,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colegio Lucas Y javi",
+      "mes": 3,
+      "monto": 225150,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colegio Lucas Y javi",
+      "mes": 4,
+      "monto": 225150,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colegio Lucas Y javi",
+      "mes": 5,
+      "monto": 225150,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colegio Lucas Y javi",
+      "mes": 6,
+      "monto": 225150,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colegio Lucas Y javi",
+      "mes": 7,
+      "monto": 225150,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colegio Lucas Y javi",
+      "mes": 8,
+      "monto": 225150,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colegio Lucas Y javi",
+      "mes": 9,
+      "monto": 225150,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colegio Lucas Y javi",
+      "mes": 10,
+      "monto": 225150,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colegio Lucas Y javi",
+      "mes": 11,
+      "monto": 225150,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colegio Lucas Y javi",
+      "mes": 12,
+      "monto": 225150,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Per.Cir. Y PRT",
+      "mes": 4,
+      "monto": 35000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Per.Cir. Y PRT",
+      "mes": 7,
+      "monto": 25000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 1,
+      "monto": 300000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 2,
+      "monto": 150000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 3,
+      "monto": 200000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 4,
+      "monto": 200000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 5,
+      "monto": 200000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 6,
+      "monto": 200000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 7,
+      "monto": 200000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 8,
+      "monto": 200000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 9,
+      "monto": 200000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 10,
+      "monto": 200000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 11,
+      "monto": 200000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercaderia",
+      "mes": 12,
+      "monto": 200000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 1,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 2,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 3,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 4,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 5,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 6,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 7,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 8,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 9,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 10,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 11,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compra de Agua Bidon",
+      "mes": 12,
+      "monto": 22500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Movilizacion colegios",
+      "mes": 2,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Movilizacion colegios",
+      "mes": 3,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Movilizacion colegios",
+      "mes": 4,
+      "monto": 100000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Movilizacion colegios",
+      "mes": 5,
+      "monto": 70000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Movilizacion colegios",
+      "mes": 6,
+      "monto": 120000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Movilizacion colegios",
+      "mes": 7,
+      "monto": 120000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Movilizacion colegios",
+      "mes": 8,
+      "monto": 120000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Movilizacion colegios",
+      "mes": 9,
+      "monto": 120000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Movilizacion colegios",
+      "mes": 10,
+      "monto": 120000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Movilizacion colegios",
+      "mes": 11,
+      "monto": 120000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Movilizacion colegios",
+      "mes": 12,
+      "monto": 120000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 1,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 2,
+      "monto": 42000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 3,
+      "monto": 42000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 4,
+      "monto": 42000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 5,
+      "monto": 42000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 6,
+      "monto": 42000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 7,
+      "monto": 42000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 8,
+      "monto": 42000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 9,
+      "monto": 42000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 10,
+      "monto": 42000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 11,
+      "monto": 42000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro Comple",
+      "mes": 12,
+      "monto": 42000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 1,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 2,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 3,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 4,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 5,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 6,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 7,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 8,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 9,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 10,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 11,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Pan",
+      "mes": 12,
+      "monto": 54000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 1,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 2,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 3,
+      "monto": 50000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 4,
+      "monto": 80000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 5,
+      "monto": 80000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 6,
+      "monto": 80000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 7,
+      "monto": 80000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 8,
+      "monto": 80000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 9,
+      "monto": 80000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 10,
+      "monto": 80000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 11,
+      "monto": 80000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Colacion",
+      "mes": 12,
+      "monto": 80000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 1,
+      "monto": 153500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 2,
+      "monto": 173500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 3,
+      "monto": 153500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 4,
+      "monto": 153500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 5,
+      "monto": 153500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 6,
+      "monto": 223500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 7,
+      "monto": 223500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 8,
+      "monto": 223500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 9,
+      "monto": 223500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 10,
+      "monto": 223500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 11,
+      "monto": 223500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Plata a Gina",
+      "mes": 12,
+      "monto": 223500,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 1,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 2,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 3,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 4,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 5,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 6,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 7,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 8,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 9,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 10,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 11,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Gas",
+      "mes": 12,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Lucas",
+      "mes": 7,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Lucas",
+      "mes": 8,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Lucas",
+      "mes": 9,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Lucas",
+      "mes": 10,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Lucas",
+      "mes": 11,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Lucas",
+      "mes": 12,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Javi",
+      "mes": 7,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Javi",
+      "mes": 8,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Javi",
+      "mes": 9,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Javi",
+      "mes": 10,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Javi",
+      "mes": 11,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Cuota Javi",
+      "mes": 12,
+      "monto": 20000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 1,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 2,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 3,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 4,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 5,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 6,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 7,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 8,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 9,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 10,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 11,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Seguro dental",
+      "mes": 12,
+      "monto": 61345,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 1,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 2,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 3,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 4,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 5,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 6,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 7,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 8,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 9,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 10,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 11,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Netflix",
+      "mes": 12,
+      "monto": 10990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ondrive365",
+      "mes": 1,
+      "monto": 8490,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ondrive365",
+      "mes": 2,
+      "monto": 8490,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ondrive365",
+      "mes": 3,
+      "monto": 4990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ondrive365",
+      "mes": 5,
+      "monto": 4990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ondrive365",
+      "mes": 6,
+      "monto": 4990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ondrive365",
+      "mes": 7,
+      "monto": 4990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ondrive365",
+      "mes": 8,
+      "monto": 4990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ondrive365",
+      "mes": 9,
+      "monto": 4990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ondrive365",
+      "mes": 10,
+      "monto": 4990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ondrive365",
+      "mes": 11,
+      "monto": 4990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ondrive365",
+      "mes": 12,
+      "monto": 4990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 1,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 2,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 3,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 4,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 5,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 6,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 7,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 8,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 9,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 10,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 11,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Google One",
+      "mes": 12,
+      "monto": 8990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Comida(sushi) o esparcimiento",
+      "mes": 3,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Comida(sushi) o esparcimiento",
+      "mes": 4,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Comida(sushi) o esparcimiento",
+      "mes": 5,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Comida(sushi) o esparcimiento",
+      "mes": 7,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Comida(sushi) o esparcimiento",
+      "mes": 8,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Comida(sushi) o esparcimiento",
+      "mes": 9,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Comida(sushi) o esparcimiento",
+      "mes": 10,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Comida(sushi) o esparcimiento",
+      "mes": 11,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Comida(sushi) o esparcimiento",
+      "mes": 12,
+      "monto": 40000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular Movistar",
+      "mes": 1,
+      "monto": 10000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular Movistar",
+      "mes": 2,
+      "monto": 18745,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Celular Movistar",
+      "mes": 3,
+      "monto": 5510,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Mercado Libre",
+      "mes": 2,
+      "monto": 39758,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Viaje Carola",
+      "mes": 5,
+      "monto": 80000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Viaje Carola",
+      "mes": 6,
+      "monto": 80000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Viaje Carola",
+      "mes": 7,
+      "monto": 80000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Viaje Carola",
+      "mes": 8,
+      "monto": 80000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Viaje Carola",
+      "mes": 9,
+      "monto": 80000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Viaje Carola",
+      "mes": 10,
+      "monto": 80000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Viaje Carola",
+      "mes": 11,
+      "monto": 80000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Viaje Carola",
+      "mes": 12,
+      "monto": 80000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Compras festividades",
+      "mes": 1,
+      "monto": 200000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "ChatGPT",
+      "mes": 2,
+      "monto": 21990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "ChatGPT",
+      "mes": 3,
+      "monto": 21990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "ChatGPT",
+      "mes": 4,
+      "monto": 21990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "ChatGPT",
+      "mes": 5,
+      "monto": 21990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "ChatGPT",
+      "mes": 6,
+      "monto": 21990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "ChatGPT",
+      "mes": 7,
+      "monto": 21990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "ChatGPT",
+      "mes": 8,
+      "monto": 21990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "ChatGPT",
+      "mes": 9,
+      "monto": 21990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "ChatGPT",
+      "mes": 10,
+      "monto": 21990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "ChatGPT",
+      "mes": 11,
+      "monto": 21990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "ChatGPT",
+      "mes": 12,
+      "monto": 21990,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ahorro",
+      "mes": 1,
+      "monto": 220000,
+      "tipo": "GASTO"
+    },
+    {
+      "categoria": "Ahorro",
+      "mes": 2,
+      "monto": 500000,
+      "tipo": "GASTO"
+    }
+  ]
+}

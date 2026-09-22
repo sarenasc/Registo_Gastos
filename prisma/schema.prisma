@@ -1,0 +1,100 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL") // pooled connection (pgbouncer, puerto 6543) - usada en runtime
+  directUrl = env("DIRECT_URL") // conexión directa (puerto 5432) - usada solo por `prisma migrate`
+}
+
+enum TipoCategoria {
+  INGRESO
+  COSTO
+  GASTO
+}
+
+enum Prioridad {
+  ALTA
+  MEDIA
+  BAJA
+}
+
+enum Frecuencia {
+  DIARIA
+  SEMANAL
+  MENSUAL
+  ANUAL
+  PUNTUAL
+}
+
+enum FuenteConsejo {
+  REGLA
+  IA
+}
+
+enum EstadoConsejo {
+  PENDIENTE
+  APLICADO
+  DESCARTADO
+}
+
+model Category {
+  id        String        @id @default(cuid())
+  name      String        @unique
+  type      TipoCategoria
+  priority  Prioridad     @default(MEDIA)
+  frequency Frecuencia    @default(MENSUAL)
+  color     String?
+  archived  Boolean       @default(false)
+  createdAt DateTime      @default(now())
+
+  movements   Movement[]
+  budgetItems BudgetItem[]
+  adviceItems AdviceItem[]
+
+  @@map("categories")
+}
+
+model Movement {
+  id         String     @id @default(cuid())
+  categoryId String
+  category   Category   @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  date       DateTime
+  amount     Decimal    @db.Decimal(12, 2)
+  frequency  Frecuencia @default(PUNTUAL)
+  note       String?
+  createdAt  DateTime   @default(now())
+
+  @@index([categoryId, date])
+  @@map("movements")
+}
+
+model BudgetItem {
+  id            String   @id @default(cuid())
+  categoryId    String
+  category      Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  year          Int
+  month         Int
+  plannedAmount Decimal  @db.Decimal(12, 2)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@unique([categoryId, year, month])
+  @@map("budget_items")
+}
+
+model AdviceItem {
+  id               String        @id @default(cuid())
+  categoryId       String?
+  category         Category?     @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  title            String
+  description      String
+  source           FuenteConsejo
+  estimatedSavings Decimal?      @db.Decimal(12, 2)
+  sourceUrl        String?
+  status           EstadoConsejo @default(PENDIENTE)
+  createdAt        DateTime      @default(now())
+
+  @@map("advice_items")
+}

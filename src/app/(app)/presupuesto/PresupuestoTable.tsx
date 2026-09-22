@@ -1,0 +1,145 @@
+"use client";
+
+import { useMemo, useState, useTransition } from "react";
+import { Archive, Check } from "lucide-react";
+import { actualizarCategoria, actualizarPresupuestoCategoria, archivarCategoria } from "./actions";
+import { MESES, PRIORIDAD_LABEL, TIPO_LABEL } from "@/lib/constants";
+import { formatCLP } from "@/lib/format";
+
+type Categoria = {
+  id: string;
+  name: string;
+  type: "INGRESO" | "COSTO" | "GASTO";
+  priority: "ALTA" | "MEDIA" | "BAJA";
+  frequency: "DIARIA" | "SEMANAL" | "MENSUAL" | "ANUAL" | "PUNTUAL";
+};
+
+type BudgetItem = { categoryId: string; month: number; plannedAmount: unknown };
+
+function CategoriaRow({ categoria, montosIniciales, year }: { categoria: Categoria; montosIniciales: number[]; year: number }) {
+  const [montos, setMontos] = useState(montosIniciales);
+  const [type, setType] = useState(categoria.type);
+  const [priority, setPriority] = useState(categoria.priority);
+  const [saved, setSaved] = useState(false);
+  const [isPending, startTransition] = useTransition();
+
+  const total = montos.reduce((a, b) => a + b, 0);
+  const dirty = JSON.stringify(montos) !== JSON.stringify(montosIniciales);
+
+  function guardarMontos() {
+    startTransition(async () => {
+      await actualizarPresupuestoCategoria(categoria.id, year, montos);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 1500);
+    });
+  }
+
+  function cambiarClasificacion(nextType: typeof type, nextPriority: typeof priority) {
+    setType(nextType);
+    setPriority(nextPriority);
+    startTransition(() => actualizarCategoria(categoria.id, { type: nextType, priority: nextPriority, frequency: categoria.frequency }));
+  }
+
+  return (
+    <tr className="border-b border-slate-100 last:border-0">
+      <td className="sticky left-0 z-[1] whitespace-nowrap bg-white px-3 py-2 text-sm font-medium text-slate-800">{categoria.name}</td>
+      <td className="px-2 py-2">
+        <select
+          value={type}
+          onChange={(e) => cambiarClasificacion(e.target.value as typeof type, priority)}
+          className="rounded-md border border-slate-300 bg-white px-1.5 py-1 text-xs"
+        >
+          {Object.entries(TIPO_LABEL).map(([v, l]) => (
+            <option key={v} value={v}>
+              {l}
+            </option>
+          ))}
+        </select>
+      </td>
+      <td className="px-2 py-2">
+        <select
+          value={priority}
+          onChange={(e) => cambiarClasificacion(type, e.target.value as typeof priority)}
+          className="rounded-md border border-slate-300 bg-white px-1.5 py-1 text-xs"
+        >
+          {Object.entries(PRIORIDAD_LABEL).map(([v, l]) => (
+            <option key={v} value={v}>
+              {l}
+            </option>
+          ))}
+        </select>
+      </td>
+      {montos.map((m, idx) => (
+        <td key={idx} className="px-1 py-2">
+          <input
+            type="number"
+            value={m}
+            onChange={(e) => {
+              const next = [...montos];
+              next[idx] = Number(e.target.value) || 0;
+              setMontos(next);
+            }}
+            className="w-20 rounded-md border border-slate-200 px-1.5 py-1 text-right text-xs"
+          />
+        </td>
+      ))}
+      <td className="px-2 py-2 text-right text-xs font-semibold text-slate-700">{formatCLP(total)}</td>
+      <td className="px-2 py-2">
+        <div className="flex items-center gap-1.5">
+          <button
+            onClick={guardarMontos}
+            disabled={!dirty || isPending}
+            className="rounded-md bg-emerald-600 px-2 py-1 text-xs font-medium text-white disabled:opacity-40"
+          >
+            {saved ? <Check className="h-3.5 w-3.5" /> : "Guardar"}
+          </button>
+          <button
+            onClick={() => startTransition(() => archivarCategoria(categoria.id))}
+            title="Archivar categoría"
+            className="rounded-md p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-700"
+          >
+            <Archive className="h-3.5 w-3.5" />
+          </button>
+        </div>
+      </td>
+    </tr>
+  );
+}
+
+export function PresupuestoTable({ categorias, presupuestos, year }: { categorias: Categoria[]; presupuestos: BudgetItem[]; year: number }) {
+  const montosPorCategoria = useMemo(() => {
+    const map = new Map<string, number[]>();
+    for (const c of categorias) map.set(c.id, Array(12).fill(0));
+    for (const p of presupuestos) {
+      const arr = map.get(p.categoryId);
+      if (arr) arr[p.month - 1] = Number(p.plannedAmount as number) || 0;
+    }
+    return map;
+  }, [categorias, presupuestos]);
+
+  return (
+    <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
+      <table className="min-w-max border-collapse text-sm">
+        <thead>
+          <tr className="border-b border-slate-200 bg-slate-50 text-left text-xs font-semibold text-slate-500">
+            <th className="sticky left-0 z-[1] bg-slate-50 px-3 py-2">Categoría</th>
+            <th className="px-2 py-2">Tipo</th>
+            <th className="px-2 py-2">Prioridad</th>
+            {MESES.map((m) => (
+              <th key={m} className="px-1 py-2 text-right">
+                {m.slice(0, 3)}
+              </th>
+            ))}
+            <th className="px-2 py-2 text-right">Total</th>
+            <th className="px-2 py-2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {categorias.map((c) => (
+            <CategoriaRow key={c.id} categoria={c} montosIniciales={montosPorCategoria.get(c.id) ?? Array(12).fill(0)} year={year} />
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
