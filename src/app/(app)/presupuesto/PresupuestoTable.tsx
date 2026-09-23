@@ -1,10 +1,11 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
+import { clsx } from "clsx";
 import { Archive, Check } from "lucide-react";
 import { actualizarCategoria, actualizarPresupuestoCategoria, archivarCategoria, renombrarCategoria } from "./actions";
 import { MESES, PRIORIDAD_LABEL, TIPO_LABEL } from "@/lib/constants";
-import { Money } from "@/components/Money";
+import { Money, SignedMoney } from "@/components/Money";
 
 type Categoria = {
   id: string;
@@ -27,6 +28,7 @@ function CategoriaRow({ categoria, montosIniciales, year }: { categoria: Categor
 
   const total = montos.reduce((a, b) => a + b, 0);
   const dirty = JSON.stringify(montos) !== JSON.stringify(montosIniciales);
+  const esIngreso = type === "INGRESO";
 
   function guardarMontos() {
     startTransition(async () => {
@@ -107,12 +109,15 @@ function CategoriaRow({ categoria, montosIniciales, year }: { categoria: Categor
               next[idx] = Number(e.target.value) || 0;
               setMontos(next);
             }}
-            className="w-20 rounded-md border border-slate-200 px-1.5 py-1 text-right text-xs"
+            className={clsx(
+              "w-20 rounded-md border border-slate-200 px-1.5 py-1 text-right text-xs font-medium",
+              esIngreso ? "text-[#2a78d6]" : "text-[#d03b3b]"
+            )}
           />
         </td>
       ))}
-      <td className="px-2 py-2 text-right text-xs font-semibold text-slate-700">
-        <Money value={total} />
+      <td className="px-2 py-2 text-right text-xs">
+        <SignedMoney value={total} tipo={type} />
       </td>
       <td className="px-2 py-2">
         <div className="flex items-center gap-1.5">
@@ -147,21 +152,35 @@ export function PresupuestoTable({ categorias, presupuestos, year }: { categoria
     return map;
   }, [categorias, presupuestos]);
 
+  const saldoPorMes = useMemo(() => {
+    const saldos = Array(12).fill(0);
+    for (const c of categorias) {
+      const montos = montosPorCategoria.get(c.id) ?? Array(12).fill(0);
+      const signo = c.type === "INGRESO" ? 1 : -1;
+      montos.forEach((m, idx) => (saldos[idx] += signo * m));
+    }
+    return saldos;
+  }, [categorias, montosPorCategoria]);
+
+  const saldoAnual = saldoPorMes.reduce((a, b) => a + b, 0);
+
+  const thBase = "sticky top-0 z-[2] bg-slate-50 px-2 py-2";
+
   return (
-    <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
+    <div className="max-h-[70vh] overflow-auto rounded-xl border border-slate-200 bg-white shadow-sm">
       <table className="min-w-max border-collapse text-sm">
         <thead>
-          <tr className="border-b border-slate-200 bg-slate-50 text-left text-xs font-semibold text-slate-500">
-            <th className="sticky left-0 z-[1] bg-slate-50 px-3 py-2">Categoría</th>
-            <th className="px-2 py-2">Tipo</th>
-            <th className="px-2 py-2">Prioridad</th>
+          <tr className="border-b border-slate-200 text-left text-xs font-semibold text-slate-500">
+            <th className={clsx(thBase, "sticky left-0 z-[3] px-3")}>Categoría</th>
+            <th className={thBase}>Tipo</th>
+            <th className={thBase}>Prioridad</th>
             {MESES.map((m) => (
-              <th key={m} className="px-1 py-2 text-right">
+              <th key={m} className={clsx(thBase, "px-1 text-right")}>
                 {m.slice(0, 3)}
               </th>
             ))}
-            <th className="px-2 py-2 text-right">Total</th>
-            <th className="px-2 py-2"></th>
+            <th className={clsx(thBase, "text-right")}>Total</th>
+            <th className={thBase}></th>
           </tr>
         </thead>
         <tbody>
@@ -169,6 +188,21 @@ export function PresupuestoTable({ categorias, presupuestos, year }: { categoria
             <CategoriaRow key={c.id} categoria={c} montosIniciales={montosPorCategoria.get(c.id) ?? Array(12).fill(0)} year={year} />
           ))}
         </tbody>
+        <tfoot>
+          <tr className="border-t-2 border-slate-200 bg-slate-50 text-xs font-semibold">
+            <td className="sticky left-0 z-[1] bg-slate-50 px-3 py-2 text-slate-700">Saldo del mes</td>
+            <td className="px-2 py-2" colSpan={2}></td>
+            {saldoPorMes.map((s, idx) => (
+              <td key={idx} className={clsx("px-1 py-2 text-right", s >= 0 ? "text-[#0ca30c]" : "text-[#d03b3b]")}>
+                <Money value={s} />
+              </td>
+            ))}
+            <td className={clsx("px-2 py-2 text-right", saldoAnual >= 0 ? "text-[#0ca30c]" : "text-[#d03b3b]")}>
+              <Money value={saldoAnual} />
+            </td>
+            <td className="px-2 py-2"></td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   );
