@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { toNumber } from "@/lib/format";
 import { RegistroMensualTable } from "./RegistroMensualTable";
 import { RegistroTabs } from "../RegistroTabs";
+import { NuevaCategoriaForm } from "@/components/NuevaCategoriaForm";
 
 export const dynamic = "force-dynamic";
 
@@ -56,9 +57,11 @@ export default async function RegistroMensualPage({ searchParams }: { searchPara
         </div>
       </div>
 
+      <NuevaCategoriaForm />
+
       {categorias.length === 0 ? (
         <p className="rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-800">
-          Aún no hay categorías. Crea la primera en{" "}
+          Aún no hay categorías. Crea la primera arriba o en{" "}
           <Link href="/registro" className="underline">
             Registro
           </Link>

@@ -83,6 +83,7 @@ export async function crearCategoria(_prev: CrearCategoriaState, formData: FormD
   }
 
   revalidatePath("/registro");
+  revalidatePath("/registro/mensual");
   revalidatePath("/presupuesto");
   return undefined;
 }
