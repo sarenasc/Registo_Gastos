@@ -7,7 +7,7 @@ import { cerrarPresupuesto, editarPresupuestoCerrado } from "./actions";
 
 type Plan = { id: string; version: number; status: "ABIERTO" | "CERRADO"; closedAt: string | null };
 
-export function PlanEstadoBar({ plan, historial, year }: { plan: Plan; historial: Plan[]; year: number }) {
+export function PlanEstadoBar({ plan, historial, year, versionVista }: { plan: Plan; historial: Plan[]; year: number; versionVista: number }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
@@ -26,20 +26,21 @@ export function PlanEstadoBar({ plan, historial, year }: { plan: Plan; historial
             Cerrado el {new Date(plan.closedAt).toLocaleDateString("es-CL", { timeZone: "UTC" })}
           </span>
         )}
-        {historial.length > 1 && (
-          <div className="flex items-center gap-1 text-xs text-slate-400">
-            <span>·</span>
-            {historial.map((h) => (
-              <a
-                key={h.id}
-                href={`/presupuesto?year=${year}&version=${h.version}`}
-                className="rounded-full px-2 py-0.5 hover:bg-slate-100 hover:text-slate-700"
-              >
-                v{h.version}
-              </a>
-            ))}
-          </div>
-        )}
+        <div className="flex items-center gap-1 text-xs text-slate-400">
+          <span>·</span>
+          <span>Ver versión:</span>
+          {historial.map((h) => (
+            <a
+              key={h.id}
+              href={`/presupuesto?year=${year}&version=${h.version}`}
+              className={`rounded-full px-2 py-0.5 ${
+                h.version === versionVista ? "bg-slate-800 text-white dark:bg-slate-100 dark:text-slate-900" : "hover:bg-slate-100 hover:text-slate-700"
+              }`}
+            >
+              v{h.version}
+            </a>
+          ))}
+        </div>
       </div>
 
       {plan.status === "ABIERTO" ? (

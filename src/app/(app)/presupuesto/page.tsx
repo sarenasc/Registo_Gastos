@@ -56,6 +56,7 @@ export default async function PresupuestoPage({ searchParams }: { searchParams: 
         plan={{ id: plan.id, version: plan.version, status: plan.status, closedAt: plan.closedAt ? plan.closedAt.toISOString() : null }}
         historial={historial.map((h) => ({ id: h.id, version: h.version, status: h.status, closedAt: h.closedAt ? h.closedAt.toISOString() : null }))}
         year={year}
+        versionVista={plan.version}
       />
 
       {soloLectura && (

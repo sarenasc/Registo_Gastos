@@ -22,6 +22,24 @@ export async function getMovimientos(limit = 30) {
   return rows.map((m) => ({ ...m, amount: toNumber(m.amount) }));
 }
 
+export const NOTA_REGISTRO_MENSUAL = "Registro mensual";
+
+/**
+ * Movimientos "agregados" del mes: una fila por categoría/mes marcada con
+ * frequency MENSUAL y la nota de registro mensual, para la grilla rápida
+ * (distinta de los movimientos diarios sueltos que también puede haber).
+ */
+export async function getMovimientosMensualesAnio(year: number) {
+  const rows = await prisma.movement.findMany({
+    where: {
+      frequency: "MENSUAL",
+      note: NOTA_REGISTRO_MENSUAL,
+      date: { gte: new Date(Date.UTC(year, 0, 1)), lt: new Date(Date.UTC(year + 1, 0, 1)) },
+    },
+  });
+  return rows.map((m) => ({ id: m.id, categoryId: m.categoryId, month: m.date.getUTCMonth() + 1, amount: toNumber(m.amount) }));
+}
+
 export async function getMovimientosRango(desde: Date, hasta: Date) {
   const rows = await prisma.movement.findMany({
     where: { date: { gte: desde, lt: hasta } },

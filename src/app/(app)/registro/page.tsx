@@ -2,6 +2,7 @@ import { getCategorias, getMovimientos } from "@/lib/queries";
 import { RegistroForm } from "./RegistroForm";
 import { NuevaCategoriaForm } from "@/components/NuevaCategoriaForm";
 import { MovimientosList } from "./MovimientosList";
+import { RegistroTabs } from "./RegistroTabs";
 
 export const dynamic = "force-dynamic";
 
@@ -13,9 +14,11 @@ export default async function RegistroPage() {
       <div>
         <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">Registro</h1>
         <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-          Registra tus ingresos, costos y gastos apenas ocurran: diarios, semanales o mensuales.
+          Registra tus ingresos, costos y gastos apenas ocurran: gastos diarios, compras, boletas.
         </p>
       </div>
+
+      <RegistroTabs />
 
       {categorias.length === 0 ? (
         <p className="rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-800 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-200">
