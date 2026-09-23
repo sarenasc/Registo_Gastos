@@ -1,18 +1,32 @@
 import Link from "next/link";
-import { getCategorias, getPresupuestoAnio } from "@/lib/queries";
+import { getCategorias } from "@/lib/queries";
+import { obtenerOCrearPlanEditable, obtenerPlanPorVersion, historialDeVersiones } from "@/lib/presupuesto";
 import { PresupuestoTable } from "./PresupuestoTable";
+import { PlanEstadoBar } from "./PlanEstadoBar";
 import { NuevaCategoriaForm } from "@/components/NuevaCategoriaForm";
 
 export const dynamic = "force-dynamic";
 
-type SearchParams = Promise<{ year?: string }>;
+type SearchParams = Promise<{ year?: string; version?: string }>;
 
 export default async function PresupuestoPage({ searchParams }: { searchParams: SearchParams }) {
   const params = await searchParams;
   const year = Number(params.year) || new Date().getFullYear();
   const years = [year - 1, year, year + 1];
 
-  const [categorias, presupuestos] = await Promise.all([getCategorias(), getPresupuestoAnio(year)]);
+  const [categorias, planActivo, historial] = await Promise.all([getCategorias(), obtenerOCrearPlanEditable(year), historialDeVersiones(year)]);
+
+  const versionParam = params.version ? Number(params.version) : null;
+  let plan = planActivo;
+  let soloLectura = planActivo.status === "CERRADO";
+
+  if (versionParam && versionParam !== planActivo.version) {
+    const otro = await obtenerPlanPorVersion(year, versionParam);
+    if (otro) {
+      plan = otro;
+      soloLectura = true;
+    }
+  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -38,12 +52,28 @@ export default async function PresupuestoPage({ searchParams }: { searchParams: 
         </div>
       </div>
 
+      <PlanEstadoBar
+        plan={{ id: plan.id, version: plan.version, status: plan.status, closedAt: plan.closedAt ? plan.closedAt.toISOString() : null }}
+        historial={historial.map((h) => ({ id: h.id, version: h.version, status: h.status, closedAt: h.closedAt ? h.closedAt.toISOString() : null }))}
+        year={year}
+      />
+
+      {soloLectura && (
+        <p className="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-800">
+          Estás viendo la versión {plan.version}, en modo solo lectura.{" "}
+          <Link href={`/presupuesto?year=${year}`} className="underline">
+            Ir a la versión actual
+          </Link>
+          .
+        </p>
+      )}
+
       <NuevaCategoriaForm />
 
       {categorias.length === 0 ? (
         <p className="rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-800">Aún no hay categorías. Crea la primera arriba.</p>
       ) : (
-        <PresupuestoTable categorias={categorias} presupuestos={presupuestos} year={year} />
+        <PresupuestoTable categorias={categorias} plan={plan} year={year} readOnly={soloLectura} />
       )}
     </div>
   );

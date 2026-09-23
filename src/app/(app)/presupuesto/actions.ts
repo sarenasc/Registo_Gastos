@@ -2,14 +2,15 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
+import { cerrarPlan, abrirNuevaVersion } from "@/lib/presupuesto";
 
-export async function actualizarPresupuestoCategoria(categoryId: string, year: number, montosPorMes: number[]) {
+export async function actualizarPresupuestoCategoria(planId: string, year: number, categoryId: string, montosPorMes: number[]) {
   await prisma.$transaction(
     montosPorMes.map((monto, idx) =>
       prisma.budgetItem.upsert({
-        where: { categoryId_year_month: { categoryId, year, month: idx + 1 } },
+        where: { planId_categoryId_month: { planId, categoryId, month: idx + 1 } },
         update: { plannedAmount: monto },
-        create: { categoryId, year, month: idx + 1, plannedAmount: monto },
+        create: { planId, categoryId, year, month: idx + 1, plannedAmount: monto },
       })
     )
   );
@@ -47,4 +48,14 @@ export async function archivarCategoria(categoryId: string) {
   await prisma.category.update({ where: { id: categoryId }, data: { archived: true } });
   revalidatePath("/presupuesto");
   revalidatePath("/registro");
+}
+
+export async function cerrarPresupuesto(planId: string) {
+  await cerrarPlan(planId);
+  revalidatePath("/presupuesto");
+}
+
+export async function editarPresupuestoCerrado(planId: string) {
+  await abrirNuevaVersion(planId);
+  revalidatePath("/presupuesto");
 }

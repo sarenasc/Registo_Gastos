@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { toNumber } from "@/lib/format";
+import { obtenerPlanParaComparar } from "@/lib/presupuesto";
 
 export async function getCategorias() {
   return prisma.category.findMany({
@@ -28,14 +29,6 @@ export async function getMovimientosRango(desde: Date, hasta: Date) {
     orderBy: { date: "desc" },
   });
   return rows.map((m) => ({ ...m, amount: toNumber(m.amount) }));
-}
-
-export async function getPresupuestoAnio(year: number) {
-  const rows = await prisma.budgetItem.findMany({
-    where: { year },
-    include: { category: true },
-  });
-  return rows.map((b) => ({ ...b, plannedAmount: toNumber(b.plannedAmount) }));
 }
 
 export type ResumenMes = {
@@ -68,11 +61,17 @@ export type TotalPorCategoria = {
   presupuestado: number;
 };
 
-export async function getTotalesPorCategoria(year: number, month: number): Promise<TotalPorCategoria[]> {
+export async function getTotalesPorCategoria(
+  year: number,
+  month: number,
+  modoPresupuesto: "original" | "ultima" = "ultima"
+): Promise<TotalPorCategoria[]> {
+  const planComparacion = await obtenerPlanParaComparar(year, modoPresupuesto);
+
   const [categorias, movimientos, presupuestos] = await Promise.all([
     getCategorias(),
     getMovimientosRango(new Date(Date.UTC(year, month - 1, 1)), new Date(Date.UTC(year, month, 1))),
-    prisma.budgetItem.findMany({ where: { year, month } }),
+    planComparacion ? prisma.budgetItem.findMany({ where: { planId: planComparacion.id, month } }) : Promise.resolve([]),
   ]);
 
   const realPorCategoria = new Map<string, number>();

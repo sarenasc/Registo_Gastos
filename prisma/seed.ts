@@ -42,6 +42,12 @@ async function main() {
 
   console.log(`Categorías creadas/actualizadas: ${categoryIdByName.size}`);
 
+  const plan = await prisma.budgetPlan.upsert({
+    where: { year_version: { year: seedData.anio, version: 1 } },
+    update: {},
+    create: { year: seedData.anio, version: 1, status: "ABIERTO" },
+  });
+
   let presupuestosOmitidos = 0;
   for (const b of seedData.presupuestos) {
     const categoryId = categoryIdByName.get(b.categoria);
@@ -52,14 +58,15 @@ async function main() {
     }
     await prisma.budgetItem.upsert({
       where: {
-        categoryId_year_month: {
+        planId_categoryId_month: {
+          planId: plan.id,
           categoryId,
-          year: seedData.anio,
           month: b.mes,
         },
       },
       update: { plannedAmount: b.monto },
       create: {
+        planId: plan.id,
         categoryId,
         year: seedData.anio,
         month: b.mes,

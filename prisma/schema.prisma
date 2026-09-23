@@ -39,6 +39,11 @@ enum EstadoConsejo {
   DESCARTADO
 }
 
+enum EstadoPresupuesto {
+  ABIERTO
+  CERRADO
+}
+
 model Category {
   id        String        @id @default(cuid())
   name      String        @unique
@@ -70,17 +75,38 @@ model Movement {
   @@map("movements")
 }
 
+// Un año de presupuesto puede tener varias versiones: la v1 nace ABIERTA y se
+// edita en el lugar; al "cerrarla" queda fija. Si despues se vuelve a editar,
+// se crea automaticamente una v2 (copia de la anterior) para no perder el
+// historial de lo que se planifico originalmente.
+model BudgetPlan {
+  id        String            @id @default(cuid())
+  year      Int
+  version   Int
+  status    EstadoPresupuesto @default(ABIERTO)
+  label     String?
+  closedAt  DateTime?
+  createdAt DateTime          @default(now())
+
+  items BudgetItem[]
+
+  @@unique([year, version])
+  @@map("budget_plans")
+}
+
 model BudgetItem {
-  id            String   @id @default(cuid())
+  id            String     @id @default(cuid())
+  planId        String
+  plan          BudgetPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
   categoryId    String
-  category      Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  category      Category   @relation(fields: [categoryId], references: [id], onDelete: Restrict)
   year          Int
   month         Int
-  plannedAmount Decimal  @db.Decimal(12, 2)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  plannedAmount Decimal    @db.Decimal(12, 2)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
 
-  @@unique([categoryId, year, month])
+  @@unique([planId, categoryId, month])
   @@map("budget_items")
 }
 

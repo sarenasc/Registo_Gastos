@@ -1,5 +1,6 @@
 import { getResumenMes, getTendenciaMensual, getTotalesPorCategoria } from "@/lib/queries";
 import { MonthSelector } from "./MonthSelector";
+import { ModoPresupuestoSelector } from "./ModoPresupuestoSelector";
 import { StatCards } from "./StatCards";
 import { TendenciaChart } from "./TendenciaChart";
 import { CategoriaBarChart } from "./CategoriaBarChart";
@@ -7,17 +8,18 @@ import { PresupuestoVsRealList } from "./PresupuestoVsRealList";
 
 export const dynamic = "force-dynamic";
 
-type SearchParams = Promise<{ year?: string; month?: string }>;
+type SearchParams = Promise<{ year?: string; month?: string; modo?: string }>;
 
 export default async function DashboardPage({ searchParams }: { searchParams: SearchParams }) {
   const params = await searchParams;
   const now = new Date();
   const year = Number(params.year) || now.getFullYear();
   const month = Number(params.month) || now.getMonth() + 1;
+  const modoPresupuesto = params.modo === "original" ? "original" : "ultima";
 
   const [resumen, totales, tendencia] = await Promise.all([
     getResumenMes(year, month),
-    getTotalesPorCategoria(year, month),
+    getTotalesPorCategoria(year, month, modoPresupuesto),
     getTendenciaMensual(6, year, month),
   ]);
 
@@ -37,7 +39,12 @@ export default async function DashboardPage({ searchParams }: { searchParams: Se
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <CategoriaBarChart items={totales} />
-        <PresupuestoVsRealList items={totales} />
+        <div className="flex flex-col gap-2">
+          <div className="flex justify-end">
+            <ModoPresupuestoSelector year={year} month={month} modo={modoPresupuesto} />
+          </div>
+          <PresupuestoVsRealList items={totales} />
+        </div>
       </div>
     </div>
   );
