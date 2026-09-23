@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
-import { cerrarPlan, abrirNuevaVersion } from "@/lib/presupuesto";
+import { cerrarPlan, abrirNuevaVersion, crearPlanDelAnio } from "@/lib/presupuesto";
 
 export async function actualizarPresupuestoCategoria(planId: string, year: number, categoryId: string, montosPorMes: number[]) {
   await prisma.$transaction(
@@ -57,5 +57,10 @@ export async function cerrarPresupuesto(planId: string) {
 
 export async function editarPresupuestoCerrado(planId: string) {
   await abrirNuevaVersion(planId);
+  revalidatePath("/presupuesto");
+}
+
+export async function crearPresupuestoAnio(year: number, copiarDelAnterior: boolean, ajustePct: number) {
+  await crearPlanDelAnio(year, copiarDelAnterior, Number.isFinite(ajustePct) ? ajustePct : 0);
   revalidatePath("/presupuesto");
 }

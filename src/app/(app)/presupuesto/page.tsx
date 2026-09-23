@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { getCategorias } from "@/lib/queries";
-import { obtenerOCrearPlanEditable, obtenerPlanPorVersion, historialDeVersiones } from "@/lib/presupuesto";
+import { obtenerPlanActual, obtenerPlanPorVersion, historialDeVersiones } from "@/lib/presupuesto";
 import { PresupuestoTable } from "./PresupuestoTable";
 import { PlanEstadoBar } from "./PlanEstadoBar";
+import { CrearPresupuestoAnio } from "./CrearPresupuestoAnio";
 import { NuevaCategoriaForm } from "@/components/NuevaCategoriaForm";
 
 export const dynamic = "force-dynamic";
@@ -14,7 +15,40 @@ export default async function PresupuestoPage({ searchParams }: { searchParams: 
   const year = Number(params.year) || new Date().getFullYear();
   const years = [year - 1, year, year + 1];
 
-  const [categorias, planActivo, historial] = await Promise.all([getCategorias(), obtenerOCrearPlanEditable(year), historialDeVersiones(year)]);
+  const [categorias, planActivo, historial, planAnterior] = await Promise.all([
+    getCategorias(),
+    obtenerPlanActual(year),
+    historialDeVersiones(year),
+    obtenerPlanActual(year - 1),
+  ]);
+
+  const yearSwitcher = (
+    <div className="flex gap-1">
+      {years.map((y) => (
+        <Link
+          key={y}
+          href={`/presupuesto?year=${y}`}
+          className={`rounded-full px-3 py-1.5 text-sm font-medium ${
+            y === year ? "bg-emerald-600 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+          }`}
+        >
+          {y}
+        </Link>
+      ))}
+    </div>
+  );
+
+  if (!planActivo) {
+    return (
+      <div className="flex flex-col gap-6">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">Presupuesto {year}</h1>
+          {yearSwitcher}
+        </div>
+        <CrearPresupuestoAnio year={year} hayAnterior={!!planAnterior} />
+      </div>
+    );
+  }
 
   const versionParam = params.version ? Number(params.version) : null;
   let plan = planActivo;
@@ -37,19 +71,7 @@ export default async function PresupuestoPage({ searchParams }: { searchParams: 
             Define cuánto planificas ingresar y gastar por categoría en cada mes. Aquí también clasificas tipo y prioridad.
           </p>
         </div>
-        <div className="flex gap-1">
-          {years.map((y) => (
-            <Link
-              key={y}
-              href={`/presupuesto?year=${y}`}
-              className={`rounded-full px-3 py-1.5 text-sm font-medium ${
-                y === year ? "bg-emerald-600 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-              }`}
-            >
-              {y}
-            </Link>
-          ))}
-        </div>
+        {yearSwitcher}
       </div>
 
       <PlanEstadoBar

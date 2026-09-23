@@ -125,3 +125,19 @@ model AdviceItem {
 
   @@map("advice_items")
 }
+
+// Plan de bencina de un mes: precio por litro, rendimiento y km que se
+// recorren cada dia de la semana (indice 0 = lunes ... 6 = domingo).
+model FuelPlan {
+  id            String   @id @default(cuid())
+  year          Int
+  month         Int
+  pricePerLiter Decimal  @db.Decimal(8, 2)
+  kmPerLiter    Decimal  @db.Decimal(6, 2)
+  kmPorDia      Int[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@unique([year, month])
+  @@map("fuel_plans")
+}

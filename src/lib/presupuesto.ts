@@ -14,26 +14,29 @@ async function ultimoPlanDelAnio(year: number) {
   return prisma.budgetPlan.findFirst({ where: { year }, orderBy: { version: "desc" } });
 }
 
-/**
- * Devuelve el plan (version) mas reciente del año pedido para mostrar/editar.
- * Si el año no tiene ningun plan todavia, lo crea copiando los montos del
- * plan mas reciente del año anterior (si existe) - asi el presupuesto nuevo
- * arranca con lo ya planificado en vez de partir en blanco.
- */
-export async function obtenerOCrearPlanEditable(year: number): Promise<PlanConItems> {
+/** Plan (version) mas reciente del año, o null si ese año todavia no tiene presupuesto. No crea nada. */
+export async function obtenerPlanActual(year: number): Promise<PlanConItems | null> {
   const existente = await ultimoPlanDelAnio(year);
-  if (existente) {
-    const items = await prisma.budgetItem.findMany({ where: { planId: existente.id } });
-    return {
-      ...existente,
-      items: items.map((i) => ({ categoryId: i.categoryId, month: i.month, plannedAmount: toNumber(i.plannedAmount) })),
-    };
-  }
+  if (!existente) return null;
+  const items = await prisma.budgetItem.findMany({ where: { planId: existente.id } });
+  return {
+    ...existente,
+    items: items.map((i) => ({ categoryId: i.categoryId, month: i.month, plannedAmount: toNumber(i.plannedAmount) })),
+  };
+}
 
-  const planAnterior = await ultimoPlanDelAnio(year - 1);
+/**
+ * Crea la v1 del año. Con `copiarDelAnterior` parte con los montos de la ultima
+ * version del año previo, ajustados por `ajustePct` (ej. IPC); si no, en blanco.
+ */
+export async function crearPlanDelAnio(year: number, copiarDelAnterior: boolean, ajustePct = 0) {
+  if (await ultimoPlanDelAnio(year)) return;
+
+  const planAnterior = copiarDelAnterior ? await ultimoPlanDelAnio(year - 1) : null;
   const itemsAnteriores = planAnterior ? await prisma.budgetItem.findMany({ where: { planId: planAnterior.id } }) : [];
+  const factor = 1 + ajustePct / 100;
 
-  const nuevoPlan = await prisma.budgetPlan.create({
+  await prisma.budgetPlan.create({
     data: {
       year,
       version: 1,
@@ -43,17 +46,11 @@ export async function obtenerOCrearPlanEditable(year: number): Promise<PlanConIt
           categoryId: i.categoryId,
           year,
           month: i.month,
-          plannedAmount: i.plannedAmount,
+          plannedAmount: Math.round(toNumber(i.plannedAmount) * factor),
         })),
       },
     },
-    include: { items: true },
   });
-
-  return {
-    ...nuevoPlan,
-    items: nuevoPlan.items.map((i) => ({ categoryId: i.categoryId, month: i.month, plannedAmount: toNumber(i.plannedAmount) })),
-  };
 }
 
 export async function obtenerPlanPorVersion(year: number, version: number): Promise<PlanConItems | null> {
