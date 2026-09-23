@@ -144,7 +144,7 @@ export function RegistroMensualTable({
         <tbody>
           {categorias.map((c) => (
             <CategoriaRow
-              key={c.id}
+              key={`${c.id}-${(guardadosPorCategoria.get(c.id) ?? []).join(",")}-${(presupuestoPorCategoria.get(c.id) ?? []).join(",")}`}
               categoria={c}
               guardados={guardadosPorCategoria.get(c.id) ?? Array(12).fill(null)}
               presupuesto={presupuestoPorCategoria.get(c.id) ?? Array(12).fill(0)}

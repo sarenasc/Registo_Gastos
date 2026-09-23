@@ -228,7 +228,7 @@ export function PresupuestoTable({
         <tbody>
           {categorias.map((c) => (
             <CategoriaRow
-              key={c.id}
+              key={`${plan.id}-${c.id}-${(montosPorCategoria.get(c.id) ?? []).join(",")}-${c.name}-${c.type}-${c.priority}`}
               categoria={c}
               montosIniciales={montosPorCategoria.get(c.id) ?? Array(12).fill(0)}
               planId={plan.id}

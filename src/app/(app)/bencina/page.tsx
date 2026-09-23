@@ -12,7 +12,12 @@ export default async function BencinaPage({ searchParams }: { searchParams: Sear
   const year = Number(params.year) || new Date().getFullYear();
   const years = [year - 1, year, year + 1];
 
-  const [planes, categorias] = await Promise.all([prisma.fuelPlan.findMany({ where: { year } }), getCategorias()]);
+  const [planes, categorias, planPpto] = await Promise.all([
+    prisma.fuelPlan.findMany({ where: { year } }),
+    getCategorias(),
+    prisma.budgetPlan.findFirst({ where: { year }, orderBy: { version: "desc" } }),
+  ]);
+  const hayAnterior = !!(await prisma.budgetPlan.findFirst({ where: { year: year - 1 } }));
 
   const guardados = planes.map((p) => ({
     month: p.month,
@@ -46,7 +51,14 @@ export default async function BencinaPage({ searchParams }: { searchParams: Sear
         </div>
       </div>
 
-      <BencinaPlanner year={year} guardados={guardados} categorias={categorias.map((c) => ({ id: c.id, name: c.name }))} />
+      <BencinaPlanner
+        key={year}
+        year={year}
+        guardados={guardados}
+        categorias={categorias.map((c) => ({ id: c.id, name: c.name }))}
+        estadoPpto={planPpto ? { status: planPpto.status, version: planPpto.version } : null}
+        hayAnterior={hayAnterior}
+      />
     </div>
   );
 }

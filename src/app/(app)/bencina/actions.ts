@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { calcularBencina } from "@/lib/bencina";
+import { crearPlanDelAnio } from "@/lib/presupuesto";
 
 const mesSchema = z.object({
   month: z.number().int().min(1).max(12),
@@ -30,9 +31,13 @@ export async function guardarPlanBencina(year: number, meses: z.infer<typeof mes
 }
 
 /** Copia el costo mensual de bencina al presupuesto abierto del año, en la categoria elegida. */
-export async function aplicarBencinaAlPresupuesto(year: number, categoryId: string): Promise<{ error?: string; ok?: string }> {
-  const plan = await prisma.budgetPlan.findFirst({ where: { year }, orderBy: { version: "desc" } });
-  if (!plan) return { error: `El presupuesto ${year} aún no está creado. Créalo primero en Presupuesto.` };
+export async function aplicarBencinaAlPresupuesto(year: number, categoryId: string, crearSiFalta = false): Promise<{ error?: string; ok?: string }> {
+  let plan = await prisma.budgetPlan.findFirst({ where: { year }, orderBy: { version: "desc" } });
+  if (!plan && crearSiFalta) {
+    await crearPlanDelAnio(year, true);
+    plan = await prisma.budgetPlan.findFirst({ where: { year }, orderBy: { version: "desc" } });
+  }
+  if (!plan) return { error: `El presupuesto ${year} aún no está creado.` };
   if (plan.status === "CERRADO") return { error: `El presupuesto ${year} está cerrado. Abre una nueva versión en Presupuesto para poder modificarlo.` };
 
   const planes = await prisma.fuelPlan.findMany({ where: { year } });
@@ -49,5 +54,6 @@ export async function aplicarBencinaAlPresupuesto(year: number, categoryId: stri
     })
   );
   revalidatePath("/presupuesto");
+  revalidatePath("/bencina");
   return { ok: `Se actualizaron ${planes.length} meses del presupuesto ${year} (versión ${plan.version}).` };
 }

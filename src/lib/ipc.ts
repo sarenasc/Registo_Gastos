@@ -4,7 +4,10 @@ export type IpcMes = { year: number; month: number; valor: number };
 // obtenida de la API publica mindicador.cl.
 async function ipcDelAnio(year: number): Promise<IpcMes[]> {
   try {
-    const res = await fetch(`https://mindicador.cl/api/ipc/${year}`, { next: { revalidate: 60 * 60 * 12 } });
+    const res = await fetch(`https://mindicador.cl/api/ipc/${year}`, {
+      next: { revalidate: 60 * 60 * 12 },
+      signal: AbortSignal.timeout(8000),
+    });
     if (!res.ok) return [];
     const data = (await res.json()) as { serie?: { fecha: string; valor: number }[] };
     return (data.serie ?? []).map((s) => {

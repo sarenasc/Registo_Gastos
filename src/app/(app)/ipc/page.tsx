@@ -4,6 +4,7 @@ import { MESES } from "@/lib/constants";
 import { IpcCalculadora } from "./IpcCalculadora";
 
 export const dynamic = "force-dynamic";
+export const maxDuration = 30;
 
 type SearchParams = Promise<{ year?: string }>;
 
@@ -13,7 +14,8 @@ export default async function IpcPage({ searchParams }: { searchParams: SearchPa
   const params = await searchParams;
   const actual = new Date().getFullYear();
   const year = Number(params.year) || actual;
-  const serie = await obtenerSerieIpc(actual - 6, actual);
+  // Solo los ultimos 4 años (la fuente es lenta); si se pide un año anterior se agrega ese.
+  const serie = await obtenerSerieIpc(Math.min(actual - 3, year), actual);
 
   if (serie.length === 0) {
     return (
@@ -30,7 +32,7 @@ export default async function IpcPage({ searchParams }: { searchParams: SearchPa
   const inicio12 = serie[Math.max(0, serie.length - 12)];
   const acum12 = ipcAcumulado(serie, inicio12, ultimo);
   const delAnio = serie.filter((s) => s.year === year);
-  const years = Array.from({ length: 7 }, (_, i) => actual - 6 + i);
+  const years = Array.from({ length: 6 }, (_, i) => actual - 5 + i);
 
   let factor = 1;
   const filas = delAnio.map((s) => {

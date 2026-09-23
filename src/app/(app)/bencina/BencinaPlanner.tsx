@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
+import Link from "next/link";
 import { clsx } from "clsx";
 import { Check } from "lucide-react";
 import { aplicarBencinaAlPresupuesto, guardarPlanBencina } from "./actions";
@@ -15,7 +16,19 @@ const FILA_VACIA: Fila = { pricePerLiter: 0, kmPerLiter: 10, kmPorDia: Array(7).
 
 const nf = new Intl.NumberFormat("es-CL", { maximumFractionDigits: 1 });
 
-export function BencinaPlanner({ year, guardados, categorias }: { year: number; guardados: Guardado[]; categorias: { id: string; name: string }[] }) {
+export function BencinaPlanner({
+  year,
+  guardados,
+  categorias,
+  estadoPpto,
+  hayAnterior,
+}: {
+  year: number;
+  guardados: Guardado[];
+  categorias: { id: string; name: string }[];
+  estadoPpto: { status: "ABIERTO" | "CERRADO"; version: number } | null;
+  hayAnterior: boolean;
+}) {
   const [filas, setFilas] = useState<Fila[]>(() =>
     Array.from({ length: 12 }, (_, i) => {
       const g = guardados.find((x) => x.month === i + 1);
@@ -77,7 +90,7 @@ export function BencinaPlanner({ year, guardados, categorias }: { year: number; 
         filas.map((f, i) => ({ month: i + 1, pricePerLiter: f.pricePerLiter, kmPerLiter: f.kmPerLiter, kmPorDia: f.kmPorDia }))
       );
       if (guardadoRes?.error) return setMensaje({ tipo: "error", texto: guardadoRes.error });
-      const res = await aplicarBencinaAlPresupuesto(year, categoriaId);
+      const res = await aplicarBencinaAlPresupuesto(year, categoriaId, estadoPpto === null);
       setMensaje(res.error ? { tipo: "error", texto: res.error } : { tipo: "ok", texto: res.ok ?? "Listo." });
     });
   }
@@ -229,14 +242,42 @@ export function BencinaPlanner({ year, guardados, categorias }: { year: number; 
             ))}
           </select>
         </div>
-        <button
-          onClick={aplicarAlPresupuesto}
-          disabled={isPending || !categoriaId}
-          className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-50"
-        >
-          Usar como presupuesto {year}
-        </button>
-        {mensaje && <p className={clsx("text-sm", mensaje.tipo === "ok" ? "text-emerald-700" : "text-red-600")}>{mensaje.texto}</p>}
+        {estadoPpto?.status === "CERRADO" ? (
+          <Link
+            href={`/presupuesto?year=${year}`}
+            className="rounded-lg border border-amber-300 bg-amber-50 px-4 py-2 text-sm font-medium text-amber-800 hover:bg-amber-100"
+          >
+            Presupuesto {year} cerrado: abrir nueva versión
+          </Link>
+        ) : (
+          <button
+            onClick={aplicarAlPresupuesto}
+            disabled={isPending || !categoriaId}
+            className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-50"
+          >
+            {estadoPpto === null
+              ? `Crear presupuesto ${year}${hayAnterior ? ` (copia del ${year - 1})` : ""} y usar esta bencina`
+              : `Usar como presupuesto ${year}`}
+          </button>
+        )}
+        <p className="w-full text-xs text-slate-400">
+          Presupuesto {year}:{" "}
+          {estadoPpto === null
+            ? "aún no creado."
+            : estadoPpto.status === "CERRADO"
+              ? `cerrado (versión ${estadoPpto.version}); para cambiarlo abre una nueva versión.`
+              : `abierto (versión ${estadoPpto.version}).`}
+        </p>
+        {mensaje && (
+          <p className={clsx("text-sm", mensaje.tipo === "ok" ? "text-emerald-700" : "text-red-600")}>
+            {mensaje.texto}{" "}
+            {mensaje.tipo === "ok" && mensaje.texto.startsWith("Se actualizaron") && (
+              <Link href={`/presupuesto?year=${year}`} className="underline">
+                Ver en Presupuesto {year}
+              </Link>
+            )}
+          </p>
+        )}
       </div>
     </div>
   );
