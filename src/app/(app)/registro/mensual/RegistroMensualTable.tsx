@@ -10,7 +10,17 @@ import { Money, SignedMoney } from "@/components/Money";
 type Categoria = { id: string; name: string; type: "INGRESO" | "COSTO" | "GASTO" };
 type Registro = { categoryId: string; month: number; amount: number };
 
-function CategoriaRow({ categoria, montosIniciales, year }: { categoria: Categoria; montosIniciales: number[]; year: number }) {
+function CategoriaRow({
+  categoria,
+  montosIniciales,
+  presupuesto,
+  year,
+}: {
+  categoria: Categoria;
+  montosIniciales: number[];
+  presupuesto: number[];
+  year: number;
+}) {
   const [montos, setMontos] = useState(montosIniciales);
   const [saved, setSaved] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -45,10 +55,16 @@ function CategoriaRow({ categoria, montosIniciales, year }: { categoria: Categor
               esIngreso ? "text-[#2a78d6]" : "text-[#d03b3b]"
             )}
           />
+          <span className="block pr-1.5 text-right text-[10px] text-slate-400" title="Presupuesto">
+            ppto <Money value={presupuesto[idx]} />
+          </span>
         </td>
       ))}
       <td className="px-2 py-2 text-right text-xs">
         <SignedMoney value={total} tipo={categoria.type} />
+        <span className="block text-[10px] font-normal text-slate-400" title="Presupuesto del año">
+          ppto <Money value={presupuesto.reduce((a, b) => a + b, 0)} />
+        </span>
       </td>
       <td className="px-2 py-2">
         <button
@@ -63,7 +79,27 @@ function CategoriaRow({ categoria, montosIniciales, year }: { categoria: Categor
   );
 }
 
-export function RegistroMensualTable({ categorias, registros, year }: { categorias: Categoria[]; registros: Registro[]; year: number }) {
+export function RegistroMensualTable({
+  categorias,
+  registros,
+  presupuesto,
+  year,
+}: {
+  categorias: Categoria[];
+  registros: Registro[];
+  presupuesto: Registro[];
+  year: number;
+}) {
+  const presupuestoPorCategoria = useMemo(() => {
+    const map = new Map<string, number[]>();
+    for (const c of categorias) map.set(c.id, Array(12).fill(0));
+    for (const p of presupuesto) {
+      const arr = map.get(p.categoryId);
+      if (arr) arr[p.month - 1] = p.amount;
+    }
+    return map;
+  }, [categorias, presupuesto]);
+
   const montosPorCategoria = useMemo(() => {
     const map = new Map<string, number[]>();
     for (const c of categorias) map.set(c.id, Array(12).fill(0));
@@ -103,7 +139,13 @@ export function RegistroMensualTable({ categorias, registros, year }: { categori
         </thead>
         <tbody>
           {categorias.map((c) => (
-            <CategoriaRow key={c.id} categoria={c} montosIniciales={montosPorCategoria.get(c.id) ?? Array(12).fill(0)} year={year} />
+            <CategoriaRow
+              key={c.id}
+              categoria={c}
+              montosIniciales={montosPorCategoria.get(c.id) ?? Array(12).fill(0)}
+              presupuesto={presupuestoPorCategoria.get(c.id) ?? Array(12).fill(0)}
+              year={year}
+            />
           ))}
         </tbody>
         <tfoot>

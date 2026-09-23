@@ -11,6 +11,7 @@ type Movimiento = {
   date: Date;
   amount: unknown;
   note: string | null;
+  receiptUrl: string | null;
   category: { name: string; type: string };
 };
 
@@ -38,6 +39,12 @@ export function MovimientosList({ movimientos }: { movimientos: Movimiento[] }) 
             </p>
           </div>
           <div className="flex items-center gap-3">
+            {m.receiptUrl && (
+              <a href={m.receiptUrl} target="_blank" rel="noreferrer" title="Ver boleta" className="shrink-0">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={m.receiptUrl} alt="Boleta" className="h-9 w-9 rounded-md border border-slate-200 object-cover" />
+              </a>
+            )}
             <SignedMoney value={m.amount as number} tipo={m.category.type} className="text-sm" />
             <button
               aria-label="Eliminar movimiento"

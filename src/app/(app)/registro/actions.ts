@@ -10,6 +10,7 @@ const movimientoSchema = z.object({
   amount: z.coerce.number().positive("El monto debe ser mayor a 0"),
   frequency: z.enum(["DIARIA", "SEMANAL", "MENSUAL", "ANUAL", "PUNTUAL"]),
   note: z.string().optional(),
+  receiptUrl: z.string().url().optional(),
 });
 
 export type CrearMovimientoState = { error?: string } | undefined;
@@ -21,13 +22,14 @@ export async function crearMovimiento(_prev: CrearMovimientoState, formData: For
     amount: formData.get("amount"),
     frequency: formData.get("frequency"),
     note: formData.get("note") || undefined,
+    receiptUrl: formData.get("receiptUrl") || undefined,
   });
 
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message ?? "Datos inválidos" };
   }
 
-  const { categoryId, date, amount, frequency, note } = parsed.data;
+  const { categoryId, date, amount, frequency, note, receiptUrl } = parsed.data;
 
   await prisma.movement.create({
     data: {
@@ -36,6 +38,7 @@ export async function crearMovimiento(_prev: CrearMovimientoState, formData: For
       amount,
       frequency,
       note: note || null,
+      receiptUrl: receiptUrl || null,
     },
   });
 

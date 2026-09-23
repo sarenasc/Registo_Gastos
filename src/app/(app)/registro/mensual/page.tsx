@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { getCategorias, getMovimientosMensualesAnio } from "@/lib/queries";
+import { obtenerPlanParaComparar } from "@/lib/presupuesto";
+import { prisma } from "@/lib/prisma";
+import { toNumber } from "@/lib/format";
 import { RegistroMensualTable } from "./RegistroMensualTable";
 import { RegistroTabs } from "../RegistroTabs";
 
@@ -12,7 +15,19 @@ export default async function RegistroMensualPage({ searchParams }: { searchPara
   const year = Number(params.year) || new Date().getFullYear();
   const years = [year - 1, year, year + 1];
 
-  const [categorias, registros] = await Promise.all([getCategorias(), getMovimientosMensualesAnio(year)]);
+  const [categorias, registros, planPpto] = await Promise.all([
+    getCategorias(),
+    getMovimientosMensualesAnio(year),
+    obtenerPlanParaComparar(year, "ultima"),
+  ]);
+
+  const presupuesto = planPpto
+    ? (await prisma.budgetItem.findMany({ where: { planId: planPpto.id } })).map((i) => ({
+        categoryId: i.categoryId,
+        month: i.month,
+        amount: toNumber(i.plannedAmount),
+      }))
+    : [];
 
   return (
     <div className="flex flex-col gap-6">
@@ -50,7 +65,7 @@ export default async function RegistroMensualPage({ searchParams }: { searchPara
           .
         </p>
       ) : (
-        <RegistroMensualTable categorias={categorias} registros={registros} year={year} />
+        <RegistroMensualTable categorias={categorias} registros={registros} presupuesto={presupuesto} year={year} />
       )}
     </div>
   );
