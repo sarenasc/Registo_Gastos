@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getCategorias, getPresupuestoAnio } from "@/lib/queries";
 import { PresupuestoTable } from "./PresupuestoTable";
+import { NuevaCategoriaForm } from "@/components/NuevaCategoriaForm";
 
 export const dynamic = "force-dynamic";
 
@@ -37,14 +38,10 @@ export default async function PresupuestoPage({ searchParams }: { searchParams: 
         </div>
       </div>
 
+      <NuevaCategoriaForm />
+
       {categorias.length === 0 ? (
-        <p className="rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-800">
-          Aún no hay categorías. Crea la primera en{" "}
-          <Link href="/registro" className="underline">
-            Registro
-          </Link>
-          .
-        </p>
+        <p className="rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-800">Aún no hay categorías. Crea la primera arriba.</p>
       ) : (
         <PresupuestoTable categorias={categorias} presupuestos={presupuestos} year={year} />
       )}

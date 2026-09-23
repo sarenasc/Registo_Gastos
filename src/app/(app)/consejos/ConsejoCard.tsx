@@ -4,7 +4,7 @@ import { useTransition } from "react";
 import { Check, ExternalLink, X } from "lucide-react";
 import { actualizarEstadoConsejo } from "./actions";
 import { ESTADO_CONSEJO_LABEL, FUENTE_CONSEJO_LABEL } from "@/lib/constants";
-import { formatCLP } from "@/lib/format";
+import { Money } from "@/components/Money";
 
 type Item = {
   id: string;
@@ -44,7 +44,12 @@ export function ConsejoCard({ item }: { item: Item }) {
 
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-3 text-xs text-slate-500">
-          {Number(item.estimatedSavings ?? 0) > 0 && <span>Ahorro estimado: {formatCLP(item.estimatedSavings as number)}/mes</span>}
+          {Number(item.estimatedSavings ?? 0) > 0 && (
+            <span>
+              Ahorro estimado: <Money value={item.estimatedSavings as number} />
+              /mes
+            </span>
+          )}
           {item.sourceUrl && (
             <a href={item.sourceUrl} target="_blank" rel="noreferrer" className="flex items-center gap-1 text-emerald-700 hover:underline">
               Fuente <ExternalLink className="h-3 w-3" />

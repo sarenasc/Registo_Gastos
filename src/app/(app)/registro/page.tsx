@@ -1,6 +1,6 @@
 import { getCategorias, getMovimientos } from "@/lib/queries";
 import { RegistroForm } from "./RegistroForm";
-import { NuevaCategoriaForm } from "./NuevaCategoriaForm";
+import { NuevaCategoriaForm } from "@/components/NuevaCategoriaForm";
 import { MovimientosList } from "./MovimientosList";
 
 export const dynamic = "force-dynamic";

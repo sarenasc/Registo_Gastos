@@ -2,7 +2,7 @@
 
 import { useActionState, useState } from "react";
 import { useFormStatus } from "react-dom";
-import { crearCategoria, type CrearCategoriaState } from "./actions";
+import { crearCategoria, type CrearCategoriaState } from "@/app/(app)/registro/actions";
 import { FRECUENCIA_LABEL, PRIORIDAD_LABEL, TIPO_LABEL } from "@/lib/constants";
 
 function SubmitButton() {

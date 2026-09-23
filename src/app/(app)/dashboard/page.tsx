@@ -21,8 +21,6 @@ export default async function DashboardPage({ searchParams }: { searchParams: Se
     getTendenciaMensual(6, year, month),
   ]);
 
-  const presupuestoTotal = totales.filter((t) => t.tipo !== "INGRESO").reduce((acc, t) => acc + t.presupuestado, 0);
-
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -33,7 +31,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Se
         <MonthSelector year={year} month={month} />
       </div>
 
-      <StatCards resumen={resumen} presupuestoTotal={presupuestoTotal} />
+      <StatCards resumen={resumen} />
 
       <TendenciaChart datos={tendencia} />
 

@@ -2,9 +2,9 @@
 
 import { useMemo, useState, useTransition } from "react";
 import { Archive, Check } from "lucide-react";
-import { actualizarCategoria, actualizarPresupuestoCategoria, archivarCategoria } from "./actions";
+import { actualizarCategoria, actualizarPresupuestoCategoria, archivarCategoria, renombrarCategoria } from "./actions";
 import { MESES, PRIORIDAD_LABEL, TIPO_LABEL } from "@/lib/constants";
-import { formatCLP } from "@/lib/format";
+import { Money } from "@/components/Money";
 
 type Categoria = {
   id: string;
@@ -20,6 +20,8 @@ function CategoriaRow({ categoria, montosIniciales, year }: { categoria: Categor
   const [montos, setMontos] = useState(montosIniciales);
   const [type, setType] = useState(categoria.type);
   const [priority, setPriority] = useState(categoria.priority);
+  const [name, setName] = useState(categoria.name);
+  const [nameError, setNameError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
   const [isPending, startTransition] = useTransition();
 
@@ -40,9 +42,35 @@ function CategoriaRow({ categoria, montosIniciales, year }: { categoria: Categor
     startTransition(() => actualizarCategoria(categoria.id, { type: nextType, priority: nextPriority, frequency: categoria.frequency }));
   }
 
+  function guardarNombre() {
+    const trimmed = name.trim();
+    if (!trimmed || trimmed === categoria.name) {
+      setName(categoria.name);
+      return;
+    }
+    startTransition(async () => {
+      const res = await renombrarCategoria(categoria.id, trimmed);
+      if (res?.error) {
+        setNameError(res.error);
+        setName(categoria.name);
+      } else {
+        setNameError(null);
+      }
+    });
+  }
+
   return (
     <tr className="border-b border-slate-100 last:border-0">
-      <td className="sticky left-0 z-[1] whitespace-nowrap bg-white px-3 py-2 text-sm font-medium text-slate-800">{categoria.name}</td>
+      <td className="sticky left-0 z-[1] bg-white px-3 py-2">
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          onBlur={guardarNombre}
+          onKeyDown={(e) => e.key === "Enter" && e.currentTarget.blur()}
+          className="w-32 rounded-md border border-transparent bg-transparent px-1 py-0.5 text-sm font-medium text-slate-800 hover:border-slate-200 focus:border-emerald-400 focus:bg-white focus:outline-none"
+        />
+        {nameError && <p className="text-xs text-red-600">{nameError}</p>}
+      </td>
       <td className="px-2 py-2">
         <select
           value={type}
@@ -83,7 +111,9 @@ function CategoriaRow({ categoria, montosIniciales, year }: { categoria: Categor
           />
         </td>
       ))}
-      <td className="px-2 py-2 text-right text-xs font-semibold text-slate-700">{formatCLP(total)}</td>
+      <td className="px-2 py-2 text-right text-xs font-semibold text-slate-700">
+        <Money value={total} />
+      </td>
       <td className="px-2 py-2">
         <div className="flex items-center gap-1.5">
           <button

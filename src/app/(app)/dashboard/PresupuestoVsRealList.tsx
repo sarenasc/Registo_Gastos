@@ -1,5 +1,5 @@
 import { TrendingDown, TrendingUp } from "lucide-react";
-import { formatCLP } from "@/lib/format";
+import { Money } from "@/components/Money";
 import type { TotalPorCategoria } from "@/lib/queries";
 
 export function PresupuestoVsRealList({ items }: { items: TotalPorCategoria[] }) {
@@ -30,7 +30,7 @@ export function PresupuestoVsRealList({ items }: { items: TotalPorCategoria[] })
               <span className="min-w-0 truncate text-slate-700">{item.nombre}</span>
               <span className="flex shrink-0 items-center gap-1.5">
                 <span className="text-slate-400">
-                  {formatCLP(item.real)} / {formatCLP(item.presupuestado)}
+                  <Money value={item.real} /> / <Money value={item.presupuestado} />
                 </span>
                 <span
                   className={`flex items-center gap-0.5 rounded-full px-2 py-0.5 text-xs font-medium ${
@@ -38,7 +38,7 @@ export function PresupuestoVsRealList({ items }: { items: TotalPorCategoria[] })
                   }`}
                 >
                   {sobrePresupuesto ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
-                  {formatCLP(Math.abs(item.delta))}
+                  <Money value={Math.abs(item.delta)} />
                 </span>
               </span>
             </li>

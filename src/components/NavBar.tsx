@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { clsx } from "clsx";
 import { LayoutDashboard, NotebookPen, PiggyBank, Lightbulb, Wallet } from "lucide-react";
 import { UserMenu } from "@/components/UserMenu";
+import { PrivacyToggle } from "@/components/PrivacyToggle";
 
 const LINKS = [
   { href: "/registro", label: "Registro", icon: NotebookPen },
@@ -43,7 +44,10 @@ export function NavBar({ email }: { email?: string | null }) {
             );
           })}
         </nav>
-        <UserMenu email={email ?? null} />
+        <div className="flex items-center gap-1">
+          <PrivacyToggle />
+          <UserMenu email={email ?? null} />
+        </div>
       </div>
     </header>
   );

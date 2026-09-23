@@ -3,7 +3,7 @@
 import { useTransition } from "react";
 import { Trash2 } from "lucide-react";
 import { eliminarMovimiento } from "./actions";
-import { formatCLP } from "@/lib/format";
+import { SignedMoney } from "@/components/Money";
 import { TIPO_LABEL } from "@/lib/constants";
 
 type Movimiento = {
@@ -38,15 +38,7 @@ export function MovimientosList({ movimientos }: { movimientos: Movimiento[] }) 
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <span
-              className={
-                m.category.type === "INGRESO"
-                  ? "text-sm font-semibold text-emerald-600"
-                  : "text-sm font-semibold text-slate-900 dark:text-slate-100"
-              }
-            >
-              {formatCLP(m.amount as number)}
-            </span>
+            <SignedMoney value={m.amount as number} tipo={m.category.type} className="text-sm" />
             <button
               aria-label="Eliminar movimiento"
               disabled={isPending}
