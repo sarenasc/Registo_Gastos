@@ -6,7 +6,8 @@ const PUBLIC_PATHS = ["/login", "/auth/callback"];
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
 
-  const supabase = createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!;
+  const supabase = createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, anonKey, {
     cookies: {
       getAll() {
         return request.cookies.getAll();

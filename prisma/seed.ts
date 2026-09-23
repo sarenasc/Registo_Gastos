@@ -42,9 +42,14 @@ async function main() {
 
   console.log(`Categorías creadas/actualizadas: ${categoryIdByName.size}`);
 
+  let presupuestosOmitidos = 0;
   for (const b of seedData.presupuestos) {
     const categoryId = categoryIdByName.get(b.categoria);
     if (!categoryId) continue;
+    if (typeof b.monto !== "number" || !Number.isFinite(b.monto)) {
+      presupuestosOmitidos++;
+      continue;
+    }
     await prisma.budgetItem.upsert({
       where: {
         categoryId_year_month: {
@@ -62,13 +67,18 @@ async function main() {
       },
     });
   }
-  console.log(`Presupuestos sembrados: ${seedData.presupuestos.length}`);
+  console.log(`Presupuestos sembrados: ${seedData.presupuestos.length - presupuestosOmitidos} (omitidos por monto inválido: ${presupuestosOmitidos})`);
 
   await prisma.movement.deleteMany({ where: { note: IMPORT_NOTE } });
   let movementCount = 0;
+  let movimientosOmitidos = 0;
   for (const m of seedData.movimientos_historicos) {
     const categoryId = categoryIdByName.get(m.categoria);
     if (!categoryId) continue;
+    if (typeof m.monto !== "number" || !Number.isFinite(m.monto)) {
+      movimientosOmitidos++;
+      continue;
+    }
     await prisma.movement.create({
       data: {
         categoryId,
@@ -80,7 +90,7 @@ async function main() {
     });
     movementCount++;
   }
-  console.log(`Movimientos históricos sembrados: ${movementCount}`);
+  console.log(`Movimientos históricos sembrados: ${movementCount} (omitidos por monto inválido: ${movimientosOmitidos})`);
 }
 
 main()
