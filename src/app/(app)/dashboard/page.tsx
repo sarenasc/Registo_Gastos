@@ -15,7 +15,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Se
   const now = new Date();
   const year = Number(params.year) || now.getFullYear();
   const month = Number(params.month) || now.getMonth() + 1;
-  const modoPresupuesto = params.modo === "original" ? "original" : "ultima";
+  const modoPresupuesto = params.modo === "original" || params.modo === "mensual" ? params.modo : "ultima";
 
   const [resumen, totales, tendencia] = await Promise.all([
     getResumenMes(year, month),
@@ -43,7 +43,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Se
           <div className="flex justify-end">
             <ModoPresupuestoSelector year={year} month={month} modo={modoPresupuesto} />
           </div>
-          <PresupuestoVsRealList items={totales} />
+          <PresupuestoVsRealList items={totales} mensual={modoPresupuesto === "mensual"} />
         </div>
       </div>
     </div>

@@ -82,23 +82,35 @@ export type TotalPorCategoria = {
 export async function getTotalesPorCategoria(
   year: number,
   month: number,
-  modoPresupuesto: "original" | "ultima" = "ultima"
+  modoPresupuesto: "original" | "ultima" | "mensual" = "ultima"
 ): Promise<TotalPorCategoria[]> {
-  const planComparacion = await obtenerPlanParaComparar(year, modoPresupuesto);
+  const esAgregado = (m: { frequency: string; note: string | null }) => m.frequency === "MENSUAL" && m.note === NOTA_REGISTRO_MENSUAL;
 
-  const [categorias, movimientos, presupuestos] = await Promise.all([
+  // "mensual": se compara lo anotado dia a dia en el mes en curso contra lo
+  // declarado en el Registro mensual (en vez de contra un presupuesto).
+  const planComparacion = modoPresupuesto === "mensual" ? null : await obtenerPlanParaComparar(year, modoPresupuesto);
+
+  const [categorias, todosLosMovimientos, presupuestos] = await Promise.all([
     getCategorias(),
     getMovimientosRango(new Date(Date.UTC(year, month - 1, 1)), new Date(Date.UTC(year, month, 1))),
     planComparacion ? prisma.budgetItem.findMany({ where: { planId: planComparacion.id, month } }) : Promise.resolve([]),
   ]);
+
+  const movimientos = modoPresupuesto === "mensual" ? todosLosMovimientos.filter((m) => !esAgregado(m)) : todosLosMovimientos;
 
   const realPorCategoria = new Map<string, number>();
   for (const m of movimientos) {
     realPorCategoria.set(m.categoryId, (realPorCategoria.get(m.categoryId) ?? 0) + toNumber(m.amount));
   }
   const presupuestoPorCategoria = new Map<string, number>();
-  for (const b of presupuestos) {
-    presupuestoPorCategoria.set(b.categoryId, toNumber(b.plannedAmount));
+  if (modoPresupuesto === "mensual") {
+    for (const m of todosLosMovimientos.filter(esAgregado)) {
+      presupuestoPorCategoria.set(m.categoryId, toNumber(m.amount));
+    }
+  } else {
+    for (const b of presupuestos) {
+      presupuestoPorCategoria.set(b.categoryId, toNumber(b.plannedAmount));
+    }
   }
 
   return categorias.map((c) => ({

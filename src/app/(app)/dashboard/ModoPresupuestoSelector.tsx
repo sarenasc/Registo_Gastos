@@ -2,7 +2,9 @@
 
 import { useRouter } from "next/navigation";
 
-export function ModoPresupuestoSelector({ year, month, modo }: { year: number; month: number; modo: "original" | "ultima" }) {
+export type ModoComparacion = "original" | "ultima" | "mensual";
+
+export function ModoPresupuestoSelector({ year, month, modo }: { year: number; month: number; modo: ModoComparacion }) {
   const router = useRouter();
 
   function cambiar(nextModo: string) {
@@ -20,6 +22,7 @@ export function ModoPresupuestoSelector({ year, month, modo }: { year: number; m
       >
         <option value="ultima">Última versión del presupuesto</option>
         <option value="original">Presupuesto original</option>
+        <option value="mensual">Registro mensual (mes en curso)</option>
       </select>
     </label>
   );

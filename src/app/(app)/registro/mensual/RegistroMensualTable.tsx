@@ -12,26 +12,27 @@ type Registro = { categoryId: string; month: number; amount: number };
 
 function CategoriaRow({
   categoria,
-  montosIniciales,
+  guardados,
   presupuesto,
   year,
 }: {
   categoria: Categoria;
-  montosIniciales: number[];
+  guardados: (number | null)[];
   presupuesto: number[];
   year: number;
 }) {
-  const [montos, setMontos] = useState(montosIniciales);
+  // Los meses sin dato real guardado arrancan con el monto del presupuesto (borrador).
+  const [montos, setMontos] = useState(guardados.map((g, i) => g ?? presupuesto[i]));
   const [saved, setSaved] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   const total = montos.reduce((a, b) => a + b, 0);
-  const dirty = JSON.stringify(montos) !== JSON.stringify(montosIniciales);
+  const dirty = JSON.stringify(montos) !== JSON.stringify(guardados.map((g) => g ?? 0));
   const esIngreso = categoria.type === "INGRESO";
 
   function guardar() {
     startTransition(async () => {
-      await actualizarMovimientoMensual(categoria.id, year, montos);
+      await actualizarMovimientoMensual(categoria.id, year, montos, presupuesto);
       setSaved(true);
       setTimeout(() => setSaved(false), 1500);
     });
@@ -50,8 +51,10 @@ function CategoriaRow({
               next[idx] = Number(e.target.value) || 0;
               setMontos(next);
             }}
+            title={guardados[idx] === null && m !== 0 ? "Borrador tomado del presupuesto: aprieta Guardar para confirmarlo como real" : undefined}
             className={clsx(
-              "w-20 rounded-md border border-slate-200 px-1.5 py-1 text-right text-xs font-medium",
+              "w-20 rounded-md border px-1.5 py-1 text-right text-xs font-medium",
+              guardados[idx] === null && m !== 0 ? "border-amber-300 bg-amber-50" : "border-slate-200",
               esIngreso ? "text-[#2a78d6]" : "text-[#d03b3b]"
             )}
           />
@@ -100,9 +103,10 @@ export function RegistroMensualTable({
     return map;
   }, [categorias, presupuesto]);
 
-  const montosPorCategoria = useMemo(() => {
-    const map = new Map<string, number[]>();
-    for (const c of categorias) map.set(c.id, Array(12).fill(0));
+  // null = ese mes aun no tiene dato real guardado.
+  const guardadosPorCategoria = useMemo(() => {
+    const map = new Map<string, (number | null)[]>();
+    for (const c of categorias) map.set(c.id, Array(12).fill(null));
     for (const r of registros) {
       const arr = map.get(r.categoryId);
       if (arr) arr[r.month - 1] = r.amount;
@@ -113,12 +117,12 @@ export function RegistroMensualTable({
   const saldoPorMes = useMemo(() => {
     const saldos = Array(12).fill(0);
     for (const c of categorias) {
-      const montos = montosPorCategoria.get(c.id) ?? Array(12).fill(0);
+      const montos = guardadosPorCategoria.get(c.id) ?? Array(12).fill(null);
       const signo = c.type === "INGRESO" ? 1 : -1;
-      montos.forEach((m, idx) => (saldos[idx] += signo * m));
+      montos.forEach((m, idx) => (saldos[idx] += signo * (m ?? 0)));
     }
     return saldos;
-  }, [categorias, montosPorCategoria]);
+  }, [categorias, guardadosPorCategoria]);
 
   const thBase = "sticky top-0 z-[2] bg-slate-50 px-2 py-2";
 
@@ -142,7 +146,7 @@ export function RegistroMensualTable({
             <CategoriaRow
               key={c.id}
               categoria={c}
-              montosIniciales={montosPorCategoria.get(c.id) ?? Array(12).fill(0)}
+              guardados={guardadosPorCategoria.get(c.id) ?? Array(12).fill(null)}
               presupuesto={presupuestoPorCategoria.get(c.id) ?? Array(12).fill(0)}
               year={year}
             />
