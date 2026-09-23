@@ -31,7 +31,11 @@ export function LoginForm({ next }: { next: string }) {
       router.push(next);
       router.refresh();
     } else {
-      const { data, error } = await supabase.auth.signUp({ email, password });
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}` },
+      });
       if (error) {
         setError(error.message);
         setLoading(false);
