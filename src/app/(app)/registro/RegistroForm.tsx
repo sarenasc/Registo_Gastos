@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useRef, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { crearMovimiento, type CrearMovimientoState } from "./actions";
 import { FRECUENCIA_LABEL, TIPO_LABEL } from "@/lib/constants";
@@ -21,19 +21,25 @@ function SubmitButton() {
 }
 
 export function RegistroForm({ categorias }: { categorias: Categoria[] }) {
-  const [state, formAction] = useActionState<CrearMovimientoState, FormData>(crearMovimiento, undefined);
+  const [state, formAction, isPending] = useActionState<CrearMovimientoState, FormData>(crearMovimiento, undefined);
   const formRef = useRef<HTMLFormElement>(null);
+  const wasPending = useRef(false);
   const today = new Date().toISOString().slice(0, 10);
   const [selectedCategoryId, setSelectedCategoryId] = useState(categorias[0]?.id ?? "");
   const selectedCategory = categorias.find((c) => c.id === selectedCategoryId);
 
+  // Solo limpia el formulario cuando la acción termina SIN error (no al enviar).
+  useEffect(() => {
+    if (wasPending.current && !isPending && !state?.error) {
+      formRef.current?.reset();
+    }
+    wasPending.current = isPending;
+  }, [isPending, state]);
+
   return (
     <form
       ref={formRef}
-      action={async (formData) => {
-        await formAction(formData);
-        formRef.current?.reset();
-      }}
+      action={formAction}
       className="grid grid-cols-1 gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:grid-cols-2"
     >
       <div className="flex flex-col gap-1">

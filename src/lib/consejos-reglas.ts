@@ -4,6 +4,7 @@ export type InsightRegla = {
   categoryId: string;
   nombre: string;
   tipo: "SOBRE_PRESUPUESTO" | "PRIORIDAD_BAJA_CON_GASTO";
+  titulo: string;
   mensaje: string;
   montoPotencial: number;
 };
@@ -20,6 +21,7 @@ export function generarInsightsRegla(totales: TotalPorCategoria[]): InsightRegla
         categoryId: t.categoryId,
         nombre: t.nombre,
         tipo: "SOBRE_PRESUPUESTO",
+        titulo: `Sobre presupuesto: ${t.nombre}`,
         mensaje: `"${t.nombre}" superó el presupuesto en $${delta.toLocaleString("es-CL")} este mes.`,
         montoPotencial: delta,
       });
@@ -28,6 +30,7 @@ export function generarInsightsRegla(totales: TotalPorCategoria[]): InsightRegla
         categoryId: t.categoryId,
         nombre: t.nombre,
         tipo: "PRIORIDAD_BAJA_CON_GASTO",
+        titulo: `Prioridad baja con gasto: ${t.nombre}`,
         mensaje: `"${t.nombre}" es prioridad baja para ti y este mes gastaste $${t.real.toLocaleString("es-CL")}. Es candidato a reducir o eliminar.`,
         montoPotencial: t.real,
       });

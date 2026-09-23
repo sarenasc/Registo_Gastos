@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { getTotalesPorCategoria } from "@/lib/queries";
 import { generarInsightsRegla } from "@/lib/consejos-reglas";
+import { toNumber } from "@/lib/format";
 import { InsightsRegla } from "./InsightsRegla";
 import { GenerarIAButton } from "./GenerarIAButton";
 import { ConsejoCard } from "./ConsejoCard";
@@ -9,7 +10,7 @@ export const dynamic = "force-dynamic";
 
 export default async function ConsejosPage() {
   const now = new Date();
-  const [totales, consejos] = await Promise.all([
+  const [totales, consejosRaw] = await Promise.all([
     getTotalesPorCategoria(now.getFullYear(), now.getMonth() + 1),
     prisma.adviceItem.findMany({
       include: { category: true },
@@ -17,6 +18,9 @@ export default async function ConsejosPage() {
       take: 40,
     }),
   ]);
+
+  // `estimatedSavings` es un Decimal de Prisma: no serializa hacia un Client Component.
+  const consejos = consejosRaw.map((c) => ({ ...c, estimatedSavings: c.estimatedSavings === null ? null : toNumber(c.estimatedSavings) }));
 
   const insights = generarInsightsRegla(totales);
 

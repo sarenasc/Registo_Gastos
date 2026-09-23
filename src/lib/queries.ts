@@ -8,27 +8,34 @@ export async function getCategorias() {
   });
 }
 
+// Prisma serializa los montos como `Decimal`, una instancia de clase que React
+// no puede enviar de un Server Component a un Client Component. Se convierte
+// a `number` plano aquí, en el borde entre la consulta y la UI.
+
 export async function getMovimientos(limit = 30) {
-  return prisma.movement.findMany({
+  const rows = await prisma.movement.findMany({
     include: { category: true },
     orderBy: { date: "desc" },
     take: limit,
   });
+  return rows.map((m) => ({ ...m, amount: toNumber(m.amount) }));
 }
 
 export async function getMovimientosRango(desde: Date, hasta: Date) {
-  return prisma.movement.findMany({
+  const rows = await prisma.movement.findMany({
     where: { date: { gte: desde, lt: hasta } },
     include: { category: true },
     orderBy: { date: "desc" },
   });
+  return rows.map((m) => ({ ...m, amount: toNumber(m.amount) }));
 }
 
 export async function getPresupuestoAnio(year: number) {
-  return prisma.budgetItem.findMany({
+  const rows = await prisma.budgetItem.findMany({
     where: { year },
     include: { category: true },
   });
+  return rows.map((b) => ({ ...b, plannedAmount: toNumber(b.plannedAmount) }));
 }
 
 export type ResumenMes = {
@@ -111,24 +118,4 @@ export async function getTendenciaMensual(mesesAtras: number, anclaYear: number,
     });
   }
   return puntos;
-}
-
-export async function getMesesConDatos(): Promise<{ year: number; month: number }[]> {
-  const movimientos = await prisma.movement.findMany({
-    select: { date: true },
-    orderBy: { date: "desc" },
-    distinct: ["date"],
-  });
-  const set = new Set<string>();
-  const result: { year: number; month: number }[] = [];
-  for (const m of movimientos) {
-    const y = m.date.getUTCFullYear();
-    const mo = m.date.getUTCMonth() + 1;
-    const key = `${y}-${mo}`;
-    if (!set.has(key)) {
-      set.add(key);
-      result.push({ year: y, month: mo });
-    }
-  }
-  return result.sort((a, b) => (a.year - b.year) || (a.month - b.month));
 }

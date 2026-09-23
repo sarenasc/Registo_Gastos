@@ -33,7 +33,7 @@ export function InsightsRegla({ insights }: { insights: InsightRegla[] }) {
           </div>
           <button
             disabled={isPending}
-            onClick={() => startTransition(() => guardarInsightRegla(i.categoryId, i.mensaje, i.mensaje, i.montoPotencial))}
+            onClick={() => startTransition(() => guardarInsightRegla(i.categoryId, i.titulo, i.mensaje, i.montoPotencial))}
             className="shrink-0 rounded-md bg-slate-800 px-2.5 py-1 text-xs font-medium text-white hover:bg-slate-900 disabled:opacity-50 dark:bg-slate-100 dark:text-slate-900"
           >
             Guardar
