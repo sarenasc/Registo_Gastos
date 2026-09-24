@@ -3,6 +3,7 @@ import { getCategorias, getMovimientosMensualesAnio } from "@/lib/queries";
 import { obtenerPlanParaComparar } from "@/lib/presupuesto";
 import { prisma } from "@/lib/prisma";
 import { toNumber } from "@/lib/format";
+import { ExportarRegistroMensual } from "./ExportarRegistroMensual";
 import { RegistroMensualTable } from "./RegistroMensualTable";
 import { RegistroTabs } from "../RegistroTabs";
 import { NuevaCategoriaForm } from "@/components/NuevaCategoriaForm";
@@ -56,6 +57,8 @@ export default async function RegistroMensualPage({ searchParams }: { searchPara
           ))}
         </div>
       </div>
+
+      <ExportarRegistroMensual year={year} />
 
       <NuevaCategoriaForm />
 

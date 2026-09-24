@@ -4,6 +4,7 @@ import { obtenerPlanActual, obtenerPlanPorVersion, historialDeVersiones } from "
 import { PresupuestoTable } from "./PresupuestoTable";
 import { PlanEstadoBar } from "./PlanEstadoBar";
 import { CrearPresupuestoAnio } from "./CrearPresupuestoAnio";
+import { ImportarPresupuesto } from "./ImportarPresupuesto";
 import { NuevaCategoriaForm } from "@/components/NuevaCategoriaForm";
 
 export const dynamic = "force-dynamic";
@@ -90,6 +91,8 @@ export default async function PresupuestoPage({ searchParams }: { searchParams: 
           .
         </p>
       )}
+
+      {!soloLectura && <ImportarPresupuesto planId={plan.id} year={year} version={plan.version} />}
 
       <NuevaCategoriaForm />
 

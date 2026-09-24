@@ -22,12 +22,19 @@ export async function generarExcelPresupuesto(opts: {
   estado: "ABIERTO" | "CERRADO";
   categorias: Categoria[];
   items: Item[];
+  /** Meses (1-12) a incluir; por defecto los 12. */
+  meses?: number[];
+  /** Reemplaza el titulo y el nombre de la hoja (ej. para el registro real). */
+  titulo?: string;
+  hoja?: string;
 }): Promise<Buffer> {
   const { year, version, estado, categorias, items } = opts;
+  const meses = (opts.meses?.length ? [...new Set(opts.meses)].filter((m) => m >= 1 && m <= 12).sort((a, b) => a - b) : MESES.map((_, i) => i + 1));
+  const parcial = meses.length < 12;
   const wb = new ExcelJS.Workbook();
   wb.creator = "Registro de Gastos";
   wb.calcProperties.fullCalcOnLoad = true;
-  const ws = wb.addWorksheet(`Presupuesto ${year}`, { views: [{ state: "frozen", xSplit: 1, ySplit: 0 }] });
+  const ws = wb.addWorksheet(opts.hoja ?? `Presupuesto ${year}`, { views: [{ state: "frozen", xSplit: 1, ySplit: 0 }] });
 
   const montos = new Map<string, number[]>();
   for (const c of categorias) montos.set(c.id, Array(12).fill(0));
@@ -40,8 +47,9 @@ export async function generarExcelPresupuesto(opts: {
   const gastos = categorias.filter((c) => c.type !== "INGRESO");
 
   const COL_MES1 = 2; // B
-  const COL_TOTAL = 14; // N
-  const COL_PCT = 15; // O
+  const COL_TOTAL = COL_MES1 + meses.length; // primera columna despues de los meses
+  const COL_PCT = COL_TOTAL + 1;
+  const LT = colLetra(COL_TOTAL);
   const ultimaMes = colLetra(COL_TOTAL - 1); // M
 
   ws.getColumn(1).width = 30;
@@ -49,14 +57,14 @@ export async function generarExcelPresupuesto(opts: {
   ws.getColumn(COL_PCT).width = 11;
 
   const titulo = ws.getCell("A1");
-  titulo.value = `Presupuesto ${year} - versión ${version} (${estado === "CERRADO" ? "cerrado" : "abierto"})`;
+  titulo.value = opts.titulo ?? `Presupuesto ${year} - versión ${version} (${estado === "CERRADO" ? "cerrado" : "abierto"})`;
   titulo.font = { name: FUENTE, bold: true, size: 14 };
 
   const encabezado = (fila: number, etiqueta: string, conPct: boolean) => {
     const row = ws.getRow(fila);
     row.getCell(1).value = etiqueta;
-    MESES.forEach((m, i) => (row.getCell(COL_MES1 + i).value = m));
-    row.getCell(COL_TOTAL).value = "Total Año";
+    meses.forEach((m, i) => (row.getCell(COL_MES1 + i).value = MESES[m - 1]));
+    row.getCell(COL_TOTAL).value = parcial ? "Total" : "Total Año";
     if (conPct) row.getCell(COL_PCT).value = "%";
     const hasta = conPct ? COL_PCT : COL_TOTAL;
     for (let c = 1; c <= hasta; c++) {
@@ -71,14 +79,15 @@ export async function generarExcelPresupuesto(opts: {
     const row = ws.getRow(fila);
     row.getCell(1).value = c.name;
     row.getCell(1).font = { name: FUENTE };
-    (montos.get(c.id) ?? []).forEach((m, i) => {
+    const delMes = meses.map((m) => (montos.get(c.id) ?? [])[m - 1] ?? 0);
+    delMes.forEach((m, i) => {
       const cell = row.getCell(COL_MES1 + i);
       cell.value = m;
       cell.numFmt = FORMATO_MONTO;
       cell.font = { name: FUENTE, color: { argb: colorFuente } };
     });
     const total = row.getCell(COL_TOTAL);
-    total.value = { formula: `SUM(B${fila}:${ultimaMes}${fila})`, result: (montos.get(c.id) ?? []).reduce((a, b) => a + b, 0) };
+    total.value = { formula: `SUM(B${fila}:${ultimaMes}${fila})`, result: delMes.reduce((a, b) => a + b, 0) };
     total.numFmt = FORMATO_MONTO;
     total.font = { name: FUENTE, bold: true, color: { argb: colorFuente } };
   };
@@ -122,7 +131,7 @@ export async function generarExcelPresupuesto(opts: {
   // % de participacion de cada gasto en el total anual
   for (let f = iniGas; f <= finGas; f++) {
     const cell = ws.getRow(f).getCell(COL_PCT);
-    cell.value = { formula: `IF($N$${filaTotalGastos}=0,0,N${f}/$N$${filaTotalGastos})` };
+    cell.value = { formula: `IF($${LT}$${filaTotalGastos}=0,0,${LT}${f}/$${LT}$${filaTotalGastos})` };
     cell.numFmt = "0.0%";
     cell.font = { name: FUENTE };
   }
