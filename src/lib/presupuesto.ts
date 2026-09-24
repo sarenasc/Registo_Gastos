@@ -105,3 +105,36 @@ export async function obtenerPlanParaComparar(year: number, modo: "original" | "
   }
   return ultimoPlanDelAnio(year);
 }
+
+/**
+ * Escribe un costo por mes en una categoria del presupuesto del año (version mas
+ * reciente). Si el año no tiene presupuesto y `crearSiFalta`, lo crea copiando el
+ * año anterior. No modifica presupuestos cerrados.
+ */
+export async function volcarCostosAlPresupuesto(
+  year: number,
+  categoryId: string,
+  costos: { month: number; costo: number }[],
+  crearSiFalta: boolean
+): Promise<{ error?: string; ok?: string }> {
+  let plan = await ultimoPlanDelAnio(year);
+  if (!plan && crearSiFalta) {
+    await crearPlanDelAnio(year, true);
+    plan = await ultimoPlanDelAnio(year);
+  }
+  if (!plan) return { error: `El presupuesto ${year} aún no está creado.` };
+  if (plan.status === "CERRADO") return { error: `El presupuesto ${year} está cerrado. Abre una nueva versión en Presupuesto para poder modificarlo.` };
+  if (costos.length === 0) return { error: "Primero guarda el plan." };
+
+  const planId = plan.id;
+  await prisma.$transaction(
+    costos.map((c) =>
+      prisma.budgetItem.upsert({
+        where: { planId_categoryId_month: { planId, categoryId, month: c.month } },
+        update: { plannedAmount: c.costo },
+        create: { planId, categoryId, year, month: c.month, plannedAmount: c.costo },
+      })
+    )
+  );
+  return { ok: `Se actualizaron ${costos.length} meses del presupuesto ${year} (versión ${plan.version}).` };
+}

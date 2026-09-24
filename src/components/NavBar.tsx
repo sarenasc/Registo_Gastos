@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { clsx } from "clsx";
-import { LayoutDashboard, NotebookPen, PiggyBank, Lightbulb, Wallet, Fuel, TrendingUp } from "lucide-react";
+import { LayoutDashboard, NotebookPen, PiggyBank, Lightbulb, Wallet, Fuel, TrendingUp, ShoppingBasket } from "lucide-react";
 import { UserMenu } from "@/components/UserMenu";
 import { PrivacyToggle } from "@/components/PrivacyToggle";
 
@@ -13,6 +13,7 @@ const LINKS = [
   { href: "/presupuesto", label: "Presupuesto", icon: PiggyBank },
   { href: "/consejos", label: "Consejos", icon: Lightbulb },
   { href: "/bencina", label: "Bencina", icon: Fuel },
+  { href: "/consumo", label: "Consumo", icon: ShoppingBasket },
   { href: "/ipc", label: "IPC", icon: TrendingUp },
 ];
 

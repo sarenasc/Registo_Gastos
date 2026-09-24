@@ -39,6 +39,12 @@ enum EstadoConsejo {
   DESCARTADO
 }
 
+enum UnidadMedida {
+  UNIDAD
+  KILO
+  LITRO
+}
+
 enum EstadoPresupuesto {
   ABIERTO
   CERRADO
@@ -140,4 +146,36 @@ model FuelPlan {
 
   @@unique([year, month])
   @@map("fuel_plans")
+}
+
+// Producto de consumo recurrente (pan, leche...) para proyectar su gasto mensual.
+// priceBasis = unidad en la que esta expresado el precio; quantityBasis = unidad
+// en la que se anota la cantidad diaria. Si difieren (UNIDAD <-> KILO) se usa
+// unitWeightGrams (peso de una unidad) para convertir.
+model ConsumptionItem {
+  id              String        @id @default(cuid())
+  name            String        @unique
+  priceBasis      UnidadMedida
+  quantityBasis   UnidadMedida
+  unitWeightGrams Int?
+  createdAt       DateTime      @default(now())
+
+  plans ConsumptionPlan[]
+
+  @@map("consumption_items")
+}
+
+model ConsumptionPlan {
+  id        String          @id @default(cuid())
+  itemId    String
+  item      ConsumptionItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  year      Int
+  month     Int
+  price     Decimal         @db.Decimal(12, 2)
+  qtyPorDia Float[]
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  @@unique([itemId, year, month])
+  @@map("consumption_plans")
 }

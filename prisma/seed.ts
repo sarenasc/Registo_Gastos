@@ -3,7 +3,9 @@ import seedData from "./seed-data.json";
 
 const prisma = new PrismaClient();
 
-const IMPORT_NOTE = "Importado desde Excel (dato de muestra inicial)";
+// Misma nota que usa la grilla de Registro mensual: asi la grilla reconoce estas filas
+// y las edita en vez de crear un segundo total para el mismo mes.
+const IMPORT_NOTE = "Registro mensual";
 
 async function main() {
   console.log(`Sembrando datos de ejemplo desde Excel (año ${seedData.anio})...`);
@@ -76,7 +78,6 @@ async function main() {
   }
   console.log(`Presupuestos sembrados: ${seedData.presupuestos.length - presupuestosOmitidos} (omitidos por monto inválido: ${presupuestosOmitidos})`);
 
-  await prisma.movement.deleteMany({ where: { note: IMPORT_NOTE } });
   let movementCount = 0;
   let movimientosOmitidos = 0;
   for (const m of seedData.movimientos_historicos) {
@@ -86,14 +87,11 @@ async function main() {
       movimientosOmitidos++;
       continue;
     }
+    const date = new Date(Date.UTC(seedData.anio, m.mes - 1, 1));
+    const existente = await prisma.movement.findFirst({ where: { categoryId, date, frequency: "MENSUAL", note: IMPORT_NOTE } });
+    if (existente) continue;
     await prisma.movement.create({
-      data: {
-        categoryId,
-        date: new Date(Date.UTC(seedData.anio, m.mes - 1, 1)),
-        amount: m.monto,
-        frequency: "MENSUAL",
-        note: IMPORT_NOTE,
-      },
+      data: { categoryId, date, amount: m.monto, frequency: "MENSUAL", note: IMPORT_NOTE },
     });
     movementCount++;
   }

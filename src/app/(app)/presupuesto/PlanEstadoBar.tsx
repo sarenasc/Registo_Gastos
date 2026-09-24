@@ -2,7 +2,7 @@
 
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { Lock, Pencil } from "lucide-react";
+import { Download, Lock, Pencil } from "lucide-react";
 import { cerrarPresupuesto, editarPresupuestoCerrado } from "./actions";
 
 type Plan = { id: string; version: number; status: "ABIERTO" | "CERRADO"; closedAt: string | null };
@@ -43,6 +43,14 @@ export function PlanEstadoBar({ plan, historial, year, versionVista }: { plan: P
         </div>
       </div>
 
+      <div className="flex flex-wrap items-center gap-2">
+      <a
+        href={`/api/presupuesto/exportar?year=${year}&version=${versionVista}`}
+        className="flex items-center gap-1.5 rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50"
+      >
+        <Download className="h-3.5 w-3.5" />
+        Exportar a Excel
+      </a>
       {plan.status === "ABIERTO" ? (
         <button
           disabled={isPending}
@@ -72,6 +80,7 @@ export function PlanEstadoBar({ plan, historial, year, versionVista }: { plan: P
           Editar (crea versión {plan.version + 1})
         </button>
       )}
+      </div>
     </div>
   );
 }
