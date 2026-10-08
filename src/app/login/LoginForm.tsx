@@ -1,55 +1,18 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useActionState, useState } from "react";
 import { Loader2, Wallet } from "lucide-react";
-import { createClient } from "@/lib/supabase/client";
+import { crearCuenta, iniciarSesion, type AuthState } from "./actions";
 
 export function LoginForm({ next }: { next: string }) {
-  const router = useRouter();
-  const supabase = createClient();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [info, setInfo] = useState<string | null>(null);
+  const [signinState, signinAction, signinPending] = useActionState<AuthState, FormData>(iniciarSesion, undefined);
+  const [signupState, signupAction, signupPending] = useActionState<AuthState, FormData>(crearCuenta, undefined);
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-    setInfo(null);
-
-    if (mode === "signin") {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) {
-        setError(error.message);
-        setLoading(false);
-        return;
-      }
-      router.push(next);
-      router.refresh();
-    } else {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}` },
-      });
-      if (error) {
-        setError(error.message);
-        setLoading(false);
-        return;
-      }
-      if (data.session) {
-        router.push(next);
-        router.refresh();
-      } else {
-        setInfo("Cuenta creada. Revisa tu correo para confirmar la cuenta antes de iniciar sesión.");
-        setLoading(false);
-      }
-    }
-  }
+  const state = mode === "signin" ? signinState : signupState;
+  const loading = mode === "signin" ? signinPending : signupPending;
+  const error = state?.error ?? null;
+  const info = state?.info ?? null;
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4 dark:bg-slate-950">
@@ -76,14 +39,15 @@ export function LoginForm({ next }: { next: string }) {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        <form action={mode === "signin" ? signinAction : signupAction} className="flex flex-col gap-3">
+          <input type="hidden" name="next" value={next} />
           <div className="flex flex-col gap-1">
             <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Correo</label>
             <input
               type="email"
+              name="email"
               required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              autoComplete="email"
               className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-800"
             />
           </div>
@@ -91,10 +55,10 @@ export function LoginForm({ next }: { next: string }) {
             <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Contraseña</label>
             <input
               type="password"
+              name="password"
               required
               minLength={6}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              autoComplete={mode === "signin" ? "current-password" : "new-password"}
               className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-800"
             />
           </div>

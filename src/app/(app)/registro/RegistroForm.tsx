@@ -5,7 +5,7 @@ import { useFormStatus } from "react-dom";
 import { crearMovimiento, type CrearMovimientoState } from "./actions";
 import { Camera, Loader2, X } from "lucide-react";
 import { FRECUENCIA_LABEL, TIPO_LABEL } from "@/lib/constants";
-import { createClient } from "@/lib/supabase/client";
+import { upload } from "@vercel/blob/client";
 
 const MAX_FOTO_BYTES = 10 * 1024 * 1024;
 
@@ -58,14 +58,16 @@ export function RegistroForm({ categorias }: { categorias: Categoria[] }) {
     }
 
     setSubiendo(true);
-    const supabase = createClient();
     const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
-    const path = `${crypto.randomUUID()}.${ext}`;
-    const { error } = await supabase.storage.from("boletas").upload(path, file, { contentType: file.type });
-    if (error) {
+    try {
+      const blob = await upload(`boletas/${crypto.randomUUID()}.${ext}`, file, {
+        access: "public",
+        handleUploadUrl: "/api/boletas/upload",
+        contentType: file.type,
+      });
+      setReceiptUrl(blob.url);
+    } catch {
       setErrorFoto("No se pudo subir la foto. Intenta de nuevo.");
-    } else {
-      setReceiptUrl(supabase.storage.from("boletas").getPublicUrl(path).data.publicUrl);
     }
     setSubiendo(false);
   }

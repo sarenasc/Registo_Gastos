@@ -1,7 +1,8 @@
-// La integración de Vercel <-> Supabase guarda las credenciales con sus propios
-// nombres (POSTGRES_PRISMA_URL, etc.) en vez de los que usa este proyecto
-// (DATABASE_URL, etc.). Esto rellena esos nombres una sola vez, al arrancar el
-// servidor, para no tener que duplicar variables de entorno a mano en Vercel.
+// La integración de Vercel <-> Neon guarda las credenciales con sus propios
+// nombres (DATABASE_URL_UNPOOLED, POSTGRES_PRISMA_URL, etc.). Esto rellena los
+// nombres que usa este proyecto (DATABASE_URL, DIRECT_URL) una sola vez al
+// arrancar, para no tener que duplicar variables a mano en Vercel.
+// scripts/migrate.mjs aplica la misma lógica antes de `prisma migrate deploy`.
 function fallback(target: string, ...sources: string[]) {
   if (process.env[target]) return;
   for (const source of sources) {
@@ -13,4 +14,4 @@ function fallback(target: string, ...sources: string[]) {
 }
 
 fallback("DATABASE_URL", "POSTGRES_PRISMA_URL", "POSTGRES_URL");
-fallback("DIRECT_URL", "POSTGRES_URL_NON_POOLING");
+fallback("DIRECT_URL", "DATABASE_URL_UNPOOLED", "POSTGRES_URL_NON_POOLING", "DATABASE_URL");
