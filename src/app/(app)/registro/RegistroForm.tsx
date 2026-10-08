@@ -5,9 +5,27 @@ import { useFormStatus } from "react-dom";
 import { crearMovimiento, type CrearMovimientoState } from "./actions";
 import { Camera, Loader2, X } from "lucide-react";
 import { FRECUENCIA_LABEL, TIPO_LABEL } from "@/lib/constants";
-import { upload } from "@vercel/blob/client";
 
-const MAX_FOTO_BYTES = 10 * 1024 * 1024;
+const MAX_FOTO_BYTES = 15 * 1024 * 1024;
+const MAX_LADO_PX = 1600;
+
+// Reduce la foto (máx. 1600 px por lado, JPEG) antes de subirla: las fotos de
+// celular pesan varios MB y el servidor acepta hasta ~4 MB por petición.
+async function comprimirFoto(file: File): Promise<Blob> {
+  try {
+    const bitmap = await createImageBitmap(file);
+    const escala = Math.min(1, MAX_LADO_PX / Math.max(bitmap.width, bitmap.height));
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(bitmap.width * escala);
+    canvas.height = Math.round(bitmap.height * escala);
+    canvas.getContext("2d")?.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+    bitmap.close();
+    const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.82));
+    return blob && blob.size < file.size ? blob : file;
+  } catch {
+    return file; // formato que el navegador no sabe decodificar: se sube tal cual
+  }
+}
 
 type Categoria = { id: string; name: string; type: string; frequency: string };
 
@@ -53,19 +71,19 @@ export function RegistroForm({ categorias }: { categorias: Categoria[] }) {
       return;
     }
     if (file.size > MAX_FOTO_BYTES) {
-      setErrorFoto("La foto pesa más de 10 MB.");
+      setErrorFoto("La foto pesa más de 15 MB.");
       return;
     }
 
     setSubiendo(true);
-    const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
     try {
-      const blob = await upload(`boletas/${crypto.randomUUID()}.${ext}`, file, {
-        access: "public",
-        handleUploadUrl: "/api/boletas/upload",
-        contentType: file.type,
-      });
-      setReceiptUrl(blob.url);
+      const comprimida = await comprimirFoto(file);
+      const body = new FormData();
+      body.append("file", comprimida, comprimida === file ? file.name : "boleta.jpg");
+      const res = await fetch("/api/boletas/upload", { method: "POST", body });
+      const data = (await res.json().catch(() => ({}))) as { url?: string; error?: string };
+      if (!res.ok || !data.url) throw new Error(data.error);
+      setReceiptUrl(data.url);
     } catch {
       setErrorFoto("No se pudo subir la foto. Intenta de nuevo.");
     }

@@ -29,7 +29,7 @@ Todas las cuentas que inicien sesión ven y editan el **mismo presupuesto compar
 | `DIRECT_URL` | Conexión **directa** (sin pooler), usada por `prisma migrate`. Si no existe se usa `DATABASE_URL_UNPOOLED` (la crea la integración). |
 | `AUTH_SECRET` | Clave para firmar la cookie de sesión. Mínimo 32 caracteres: `openssl rand -base64 32`. |
 | `AUTH_ALLOWED_EMAILS` | (Opcional) Correos autorizados a crear cuenta, separados por coma. La **primera** cuenta siempre se puede crear; después, solo estos correos. |
-| `BLOB_READ_WRITE_TOKEN` | Token de Vercel Blob. Se crea solo al conectar el Blob store al proyecto. |
+| `BLOB_STORE_ID` | Id del Blob store (autenticación OIDC). Se crea solo al conectar el store; si se conectó con prefijo `BLOB_READ_WRITE_TOKEN` queda como `BLOB_READ_WRITE_TOKEN_STORE_ID`, que también se acepta. |
 | `ANTHROPIC_API_KEY` | Módulo de consejos con IA. |
 
 ## Configuración local
@@ -56,7 +56,7 @@ Todas las cuentas que inicien sesión ven y editan el **mismo presupuesto compar
 ## Despliegue en Vercel
 
 1. En el proyecto de Vercel: **Storage → Create → Neon (Postgres)** y conéctalo al proyecto (crea `DATABASE_URL`, `DATABASE_URL_UNPOOLED`, etc.).
-2. **Storage → Create → Blob** (acceso público) y conéctalo al proyecto (crea `BLOB_READ_WRITE_TOKEN`).
+2. **Storage → Create → Blob** (acceso público) y conéctalo al proyecto (crea `BLOB_STORE_ID`).
 3. En **Settings → Environment Variables** agrega `AUTH_SECRET`, `ANTHROPIC_API_KEY` y, si quieres, `AUTH_ALLOWED_EMAILS`.
 4. Redeploy. El build ejecuta `prisma migrate deploy` (`scripts/migrate.mjs`), así que las tablas se crean solas.
 5. Entra a `/login` → **Crear cuenta** con tu correo (la primera cuenta no necesita autorización).
