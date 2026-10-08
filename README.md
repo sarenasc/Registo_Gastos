@@ -1,10 +1,10 @@
 # Registro de Gastos
 
-Aplicación personal de control de presupuesto, gastos, costos e ingresos. Next.js (App Router) + Prisma + PostgreSQL (Supabase) + Supabase Auth, pensada para correr local y desplegarse en Vercel.
+Aplicación personal de control de presupuesto, gastos, costos e ingresos. Next.js (App Router) + Prisma + PostgreSQL (Neon) + login propio + Vercel Blob (fotos de boletas), pensada para correr local y desplegarse en Vercel.
 
 ## Módulos
 
-- **Login** — acceso con cuenta (correo/contraseña) vía Supabase Auth. Toda la app está protegida: sin sesión, redirige a `/login`.
+- **Login** — acceso con cuenta (correo/contraseña) con login propio (tabla `users` + cookie de sesión firmada). Toda la app está protegida: sin sesión, redirige a `/login`.
 - **Registro** — registrar movimientos manuales (ingresos, costos, gastos) diarios, semanales o mensuales.
 - **Dashboard** — resumen del mes, gasto por categoría, tendencia de ingresos vs. gastos, presupuesto vs. real.
 - **Presupuesto** — define el presupuesto mensual por categoría y clasifica cada categoría (tipo: ingreso/costo/gasto, prioridad: alta/media/baja).
@@ -17,16 +17,20 @@ Todas las cuentas que inicien sesión ven y editan el **mismo presupuesto compar
 ## Requisitos
 
 - Node.js 20+
-- Un proyecto de [Supabase](https://supabase.com) (Postgres + Auth)
+- Una base PostgreSQL en [Neon](https://neon.com) (plan gratuito; no se pausa ni se borra por inactividad)
+- Un store de [Vercel Blob](https://vercel.com/docs/storage/vercel-blob) con acceso **público** (fotos de boletas)
 - Una API key de Anthropic (para el módulo de Consejos con IA)
 
-## Configuración de Supabase (una vez)
+## Variables de entorno
 
-1. Crea un proyecto en [supabase.com](https://supabase.com/dashboard).
-2. **Project Settings → Database → Connection string**: copia la conexión con **pooler** (puerto 6543, modo `Transaction`) para `DATABASE_URL`, y la conexión **directa** (puerto 5432) para `DIRECT_URL`.
-3. **Project Settings → API**: copia `Project URL` (`NEXT_PUBLIC_SUPABASE_URL`) y `anon public key` (`NEXT_PUBLIC_SUPABASE_ANON_KEY`).
-4. **Authentication → URL Configuration**: agrega `http://localhost:3000/auth/callback` y, cuando tengas el dominio de Vercel, `https://<tu-dominio>.vercel.app/auth/callback` en *Redirect URLs*.
-5. (Opcional, recomendado para uso familiar) **Authentication → Providers → Email**: desactiva "Confirm email" si quieres que las cuentas nuevas puedan entrar sin confirmar por correo, o déjalo activo para mayor seguridad.
+| Variable | Para qué |
+|---|---|
+| `DATABASE_URL` | Conexión a Neon **con pooler** (host con `-pooler`). La integración Vercel ↔ Neon la crea sola. |
+| `DIRECT_URL` | Conexión **directa** (sin pooler), usada por `prisma migrate`. Si no existe se usa `DATABASE_URL_UNPOOLED` (la crea la integración). |
+| `AUTH_SECRET` | Clave para firmar la cookie de sesión. Mínimo 32 caracteres: `openssl rand -base64 32`. |
+| `AUTH_ALLOWED_EMAILS` | (Opcional) Correos autorizados a crear cuenta, separados por coma. La **primera** cuenta siempre se puede crear; después, solo estos correos. |
+| `BLOB_READ_WRITE_TOKEN` | Token de Vercel Blob. Se crea solo al conectar el Blob store al proyecto. |
+| `ANTHROPIC_API_KEY` | Módulo de consejos con IA. |
 
 ## Configuración local
 
@@ -34,7 +38,7 @@ Todas las cuentas que inicien sesión ven y editan el **mismo presupuesto compar
    ```bash
    npm install
    ```
-2. Copia `.env.example` a `.env.local` y completa `DATABASE_URL`, `DIRECT_URL`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` y `ANTHROPIC_API_KEY`.
+2. Copia `.env.example` a `.env.local` y completa las variables de la tabla de arriba.
 3. Aplica el esquema a la base de datos:
    ```bash
    npx prisma migrate dev --name init
@@ -51,12 +55,11 @@ Todas las cuentas que inicien sesión ven y editan el **mismo presupuesto compar
 
 ## Despliegue en Vercel
 
-Este repo se sube a GitHub listo para importar en Vercel:
-
-1. En Vercel: **Add New → Project** → importa `sarenasc/Registo_Gastos`.
-2. En **Settings → Environment Variables** agrega (Production y Preview): `DATABASE_URL`, `DIRECT_URL`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `ANTHROPIC_API_KEY`.
-3. Después del primer deploy, agrega la URL de producción a los *Redirect URLs* de Supabase (paso 4 de arriba).
-4. Corre las migraciones contra la base de Supabase (una vez, desde tu máquina con `.env.local` apuntando a Supabase): `npx prisma migrate deploy`.
+1. En el proyecto de Vercel: **Storage → Create → Neon (Postgres)** y conéctalo al proyecto (crea `DATABASE_URL`, `DATABASE_URL_UNPOOLED`, etc.).
+2. **Storage → Create → Blob** (acceso público) y conéctalo al proyecto (crea `BLOB_READ_WRITE_TOKEN`).
+3. En **Settings → Environment Variables** agrega `AUTH_SECRET`, `ANTHROPIC_API_KEY` y, si quieres, `AUTH_ALLOWED_EMAILS`.
+4. Redeploy. El build ejecuta `prisma migrate deploy` (`scripts/migrate.mjs`), así que las tablas se crean solas.
+5. Entra a `/login` → **Crear cuenta** con tu correo (la primera cuenta no necesita autorización).
 
 ## Modelo de datos (Prisma)
 
@@ -65,7 +68,7 @@ Este repo se sube a GitHub listo para importar en Vercel:
 - `BudgetItem` — presupuesto planificado por categoría/año/mes.
 - `AdviceItem` — consejos guardados (de regla o de IA), con estado (pendiente/aplicado/descartado).
 
-La autenticación (usuarios, sesiones) la maneja Supabase Auth directamente — no hay tabla de usuarios propia en Prisma.
+- `User` — cuentas con acceso (correo + hash scrypt de la contraseña). La sesión es una cookie `httpOnly` firmada con `AUTH_SECRET` (`src/lib/auth`); `src/proxy.ts` protege todas las rutas.
 
 ## Agente de consejos con IA
 

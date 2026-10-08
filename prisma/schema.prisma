@@ -4,8 +4,8 @@ generator client {
 
 datasource db {
   provider  = "postgresql"
-  url       = env("DATABASE_URL") // pooled connection (pgbouncer, puerto 6543) - usada en runtime
-  directUrl = env("DIRECT_URL") // conexión directa (puerto 5432) - usada solo por `prisma migrate`
+  url       = env("DATABASE_URL") // conexión con pooler (Neon: host con "-pooler") - usada en runtime
+  directUrl = env("DIRECT_URL") // conexión directa (sin pooler) - usada por `prisma migrate`
 }
 
 enum TipoCategoria {
@@ -178,4 +178,15 @@ model ConsumptionPlan {
 
   @@unique([itemId, year, month])
   @@map("consumption_plans")
+}
+
+// Cuentas que pueden entrar a la app. Todas ven el mismo presupuesto
+// compartido; esta tabla solo controla el acceso (login propio, sin Supabase).
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+
+  @@map("users")
 }
