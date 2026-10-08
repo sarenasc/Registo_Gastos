@@ -31,6 +31,7 @@ Todas las cuentas que inicien sesión ven y editan el **mismo presupuesto compar
 | `AUTH_ALLOWED_EMAILS` | (Opcional) Correos autorizados a crear cuenta, separados por coma. La **primera** cuenta siempre se puede crear; después, solo estos correos. |
 | `BLOB_STORE_ID` | Id del Blob store (autenticación OIDC). Se crea solo al conectar el store; si se conectó con prefijo `BLOB_READ_WRITE_TOKEN` queda como `BLOB_READ_WRITE_TOKEN_STORE_ID`, que también se acepta. |
 | `ANTHROPIC_API_KEY` | Módulo de consejos con IA. |
+| `CMF_API_KEY` | (Recomendada) API key gratuita de [api.cmfchile.cl](https://api.cmfchile.cl) para el módulo IPC. Sin ella se usa mindicador.cl, que es lento y no tiene el IPC de 2026. |
 
 ## Configuración local
 

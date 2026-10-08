@@ -1,13 +1,39 @@
 export type IpcMes = { year: number; month: number; valor: number };
 
-// Serie mensual del IPC (variacion % mensual, base publicada por el INE / Banco Central de Chile),
-// obtenida de la API publica mindicador.cl.
-async function ipcDelAnio(year: number): Promise<IpcMes[]> {
+// Serie mensual del IPC (variación % mensual publicada por el INE).
+// Fuente principal: API de la CMF (requiere CMF_API_KEY, gratuita en api.cmfchile.cl).
+// Respaldo: mindicador.cl, que es lento y en 2026 dejó de publicar el IPC.
+const CACHE = { next: { revalidate: 60 * 60 * 12 } } as const;
+
+function parseValor(v: unknown): number {
+  return typeof v === "number" ? v : Number(String(v).replace(/\./g, "").replace(",", "."));
+}
+
+async function ipcCmf(year: number): Promise<IpcMes[]> {
+  const key = process.env.CMF_API_KEY;
+  if (!key) return [];
   try {
-    const res = await fetch(`https://mindicador.cl/api/ipc/${year}`, {
-      next: { revalidate: 60 * 60 * 12 },
-      signal: AbortSignal.timeout(8000),
-    });
+    const url = `https://api.cmfchile.cl/api-sbifv3/recursos_api/ipc/${year}?apikey=${encodeURIComponent(key)}&formato=json`;
+    const res = await fetch(url, { ...CACHE, signal: AbortSignal.timeout(10000) });
+    if (!res.ok) return [];
+    const data = (await res.json()) as Record<string, unknown>;
+    // Respuesta: { "IPCs": [{ "Valor": "0,3", "Fecha": "2026-01-01" }, ...] }
+    const lista = (data.IPCs ?? Object.values(data).find(Array.isArray) ?? []) as { Valor?: unknown; Fecha?: string }[];
+    return lista
+      .filter((x) => x.Fecha && x.Valor !== undefined)
+      .map((x) => {
+        const [y, m] = x.Fecha!.split("-").map(Number);
+        return { year: y, month: m, valor: parseValor(x.Valor) };
+      })
+      .filter((x) => x.year === year && x.month >= 1 && x.month <= 12 && Number.isFinite(x.valor));
+  } catch {
+    return [];
+  }
+}
+
+async function ipcMindicador(year: number): Promise<IpcMes[]> {
+  try {
+    const res = await fetch(`https://mindicador.cl/api/ipc/${year}`, { ...CACHE, signal: AbortSignal.timeout(12000) });
     if (!res.ok) return [];
     const data = (await res.json()) as { serie?: { fecha: string; valor: number }[] };
     return (data.serie ?? []).map((s) => {
@@ -18,6 +44,16 @@ async function ipcDelAnio(year: number): Promise<IpcMes[]> {
   } catch {
     return [];
   }
+}
+
+async function ipcDelAnio(year: number): Promise<IpcMes[]> {
+  const cmf = await ipcCmf(year);
+  if (cmf.length > 0) return cmf;
+  return ipcMindicador(year);
+}
+
+export function tieneFuenteCmf() {
+  return Boolean(process.env.CMF_API_KEY);
 }
 
 export async function obtenerSerieIpc(desdeYear: number, hastaYear: number): Promise<IpcMes[]> {

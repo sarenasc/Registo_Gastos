@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { obtenerSerieIpc, ipcAcumulado } from "@/lib/ipc";
+import { obtenerSerieIpc, ipcAcumulado, tieneFuenteCmf } from "@/lib/ipc";
 import { MESES } from "@/lib/constants";
 import { IpcCalculadora } from "./IpcCalculadora";
 
@@ -22,12 +22,14 @@ export default async function IpcPage({ searchParams }: { searchParams: SearchPa
       <div className="flex flex-col gap-3">
         <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">IPC</h1>
         <p className="rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-800">
-          No se pudo obtener el IPC desde mindicador.cl en este momento. Intenta de nuevo en unos minutos.
+          No se pudo obtener el IPC en este momento. Intenta de nuevo en unos minutos.
+          {!tieneFuenteCmf() && " (Configura CMF_API_KEY en Vercel para usar la API oficial de la CMF, más rápida y al día.)"}
         </p>
       </div>
     );
   }
 
+  const faltaAnioActual = !serie.some((s) => s.year === actual);
   const ultimo = serie[serie.length - 1];
   const inicio12 = serie[Math.max(0, serie.length - 12)];
   const acum12 = ipcAcumulado(serie, inicio12, ultimo);
@@ -45,10 +47,17 @@ export default async function IpcPage({ searchParams }: { searchParams: SearchPa
       <div>
         <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">IPC y ajustes</h1>
         <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-          Variación mensual del IPC de Chile (datos del INE / Banco Central, vía mindicador.cl). Úsalo para reajustar montos o el presupuesto del
+          Variación mensual del IPC de Chile (datos del INE, vía la API de la CMF o mindicador.cl). Úsalo para reajustar montos o el presupuesto del
           próximo año.
         </p>
       </div>
+
+      {faltaAnioActual && (
+        <p className="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-800">
+          No hay datos del IPC de {actual} en la fuente
+          {tieneFuenteCmf() ? " (la CMF no respondió; intenta más tarde)." : ": mindicador.cl dejó de publicarlo. Configura CMF_API_KEY en Vercel para obtenerlo de la CMF."}
+        </p>
+      )}
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
