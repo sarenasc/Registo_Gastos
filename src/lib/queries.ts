@@ -34,13 +34,21 @@ export const NOTA_REGISTRO_MENSUAL = "Registro mensual";
 export async function getMovimientosMensualesAnio(year: number) {
   const rows = await prisma.movement.findMany({
     where: {
-      frequency: "MENSUAL",
       category: { archived: false },
-      note: NOTA_REGISTRO_MENSUAL,
-      date: { gte: new Date(Date.UTC(year, 0, 1)), lt: new Date(Date.UTC(year + 1, 0, 1)) },
+      ...filtroImputacion(new Date(Date.UTC(year, 0, 1)), new Date(Date.UTC(year + 1, 0, 1))),
     },
   });
-  return rows.map((m) => ({ id: m.id, categoryId: m.categoryId, month: m.date.getUTCMonth() + 1, amount: toNumber(m.amount) }));
+  const totales = new Map<string, { categoryId: string; month: number; amount: number; diario: number }>();
+  for (const m of rows) {
+    const month = (m.imputationDate ?? m.date).getUTCMonth() + 1;
+    const key = `${m.categoryId}:${month}`;
+    const total = totales.get(key) ?? { categoryId: m.categoryId, month, amount: 0, diario: 0 };
+    const amount = toNumber(m.amount);
+    total.amount += amount;
+    if (!(m.frequency === "MENSUAL" && m.note === NOTA_REGISTRO_MENSUAL)) total.diario += amount;
+    totales.set(key, total);
+  }
+  return [...totales.values()];
 }
 
 export async function getMovimientosRango(desde: Date, hasta: Date) {
@@ -107,8 +115,8 @@ export async function getTotalesPorCategoria(
   }
   const presupuestoPorCategoria = new Map<string, number>();
   if (modoPresupuesto === "mensual") {
-    for (const m of todosLosMovimientos.filter(esAgregado)) {
-      presupuestoPorCategoria.set(m.categoryId, toNumber(m.amount));
+    for (const m of todosLosMovimientos) {
+      presupuestoPorCategoria.set(m.categoryId, (presupuestoPorCategoria.get(m.categoryId) ?? 0) + toNumber(m.amount));
     }
   } else {
     for (const b of presupuestos) {

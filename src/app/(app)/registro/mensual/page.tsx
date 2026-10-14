@@ -39,8 +39,7 @@ export default async function RegistroMensualPage({ searchParams }: { searchPara
         <div>
           <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">Registro mensual {year}</h1>
           <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-            Ingresa de una vez el total real del mes por categoría, sin anotar cada compra. No afecta el Presupuesto — se compara contra él en el
-            Dashboard.
+            Total real por categoría y mes de imputación: incluye los movimientos diarios y lo registrado en esta grilla. Al editar el total se ajusta solo la parte mensual, sin duplicar los movimientos diarios.
           </p>
         </div>
         <div className="flex gap-1">

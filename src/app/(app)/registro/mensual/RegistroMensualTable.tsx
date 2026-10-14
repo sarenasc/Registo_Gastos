@@ -24,6 +24,8 @@ function CategoriaRow({
   // Los meses sin dato real guardado arrancan con el monto del presupuesto (borrador).
   const [montos, setMontos] = useState(guardados.map((g, i) => g ?? presupuesto[i]));
   const [saved, setSaved] = useState(false);
+  const [error, setError] = useState<string>();
+  const [editados, setEditados] = useState<number[]>([]);
   const [isPending, startTransition] = useTransition();
 
   const total = montos.reduce((a, b) => a + b, 0);
@@ -32,7 +34,9 @@ function CategoriaRow({
 
   function guardar() {
     startTransition(async () => {
-      await actualizarMovimientoMensual(categoria.id, year, montos, presupuesto);
+      setError(undefined);
+      const result = await actualizarMovimientoMensual(categoria.id, year, montos, presupuesto, editados.length ? editados : undefined);
+      if (result.error) { setError(result.error); return; }
       setSaved(true);
       setTimeout(() => setSaved(false), 1500);
     });
@@ -45,11 +49,15 @@ function CategoriaRow({
         <td key={idx} className="px-1 py-2">
           <input
             type="number"
+            min="0"
+            disabled={isPending}
+            aria-label={`${categoria.name} ${MESES[idx]} ${year}`}
             value={m}
             onChange={(e) => {
               const next = [...montos];
               next[idx] = Number(e.target.value) || 0;
               setMontos(next);
+              setEditados((prev) => prev.includes(idx + 1) ? prev : [...prev, idx + 1]);
             }}
             title={guardados[idx] === null && m !== 0 ? "Borrador tomado del presupuesto: aprieta Guardar para confirmarlo como real" : undefined}
             className={clsx(
@@ -77,6 +85,7 @@ function CategoriaRow({
         >
           {saved ? <Check className="h-3.5 w-3.5" /> : "Guardar"}
         </button>
+        {error && <p role="alert" className="mt-1 max-w-xs text-xs text-red-600">{error}</p>}
       </td>
     </tr>
   );

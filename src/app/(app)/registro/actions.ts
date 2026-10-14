@@ -5,7 +5,6 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth/server";
 import { toNumber } from "@/lib/format";
-import { NOTA_REGISTRO_MENSUAL } from "@/lib/queries";
 import { filtroImputacion } from "@/lib/imputacion";
 
 const movimientoSchema = z.object({
@@ -50,7 +49,6 @@ export async function crearMovimiento(_prev: CrearMovimientoState, formData: For
   const where = {
     categoryId,
     AND: [filtroImputacion(desde, hasta)],
-    OR: [{ frequency: { not: "MENSUAL" as const } }, { note: null }, { note: { not: NOTA_REGISTRO_MENSUAL } }],
   };
   const data = {
       categoryId,
@@ -83,6 +81,7 @@ export async function crearMovimiento(_prev: CrearMovimientoState, formData: For
   }
 
   revalidatePath("/registro");
+  revalidatePath("/registro/mensual");
   revalidatePath("/dashboard");
   revalidatePath("/presupuesto");
   revalidatePath("/egresos");
@@ -93,6 +92,7 @@ export async function crearMovimiento(_prev: CrearMovimientoState, formData: For
 export async function eliminarMovimiento(id: string) {
   await prisma.movement.delete({ where: { id } });
   revalidatePath("/registro");
+  revalidatePath("/registro/mensual");
   revalidatePath("/dashboard");
   revalidatePath("/presupuesto");
   revalidatePath("/egresos");
