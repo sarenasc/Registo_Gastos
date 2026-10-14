@@ -6,6 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth/server";
 import { toNumber } from "@/lib/format";
 import { NOTA_REGISTRO_MENSUAL } from "@/lib/queries";
+import { filtroImputacion } from "@/lib/imputacion";
 
 const movimientoSchema = z.object({
   categoryId: z.string().min(1, "Selecciona una categoría"),
@@ -14,12 +15,13 @@ const movimientoSchema = z.object({
     return Number.isFinite(parsed.getTime()) && parsed.toISOString().slice(0, 10) === date;
   }, "Selecciona una fecha válida"),
   amount: z.coerce.number().positive("El monto debe ser mayor a 0"),
+  imputationMonth: z.string().regex(/^[1-9]\d{3}-(0[1-9]|1[0-2])$/, "Selecciona el mes de imputación"),
   frequency: z.enum(["DIARIA", "SEMANAL", "MENSUAL", "ANUAL", "PUNTUAL"]),
   note: z.string().optional(),
   receiptUrl: z.string().url().optional(),
 });
 
-export type MovimientoExistente = { id: string; amount: number; frequency: string; note: string | null; receiptUrl: string | null };
+export type MovimientoExistente = { id: string; date: string; amount: number; frequency: string; note: string | null; receiptUrl: string | null };
 export type CrearMovimientoState = { error?: string; success?: boolean; existentes?: MovimientoExistente[] } | undefined;
 
 export async function crearMovimiento(_prev: CrearMovimientoState, formData: FormData): Promise<CrearMovimientoState> {
@@ -30,6 +32,7 @@ export async function crearMovimiento(_prev: CrearMovimientoState, formData: For
     categoryId: formData.get("categoryId"),
     date: formData.get("date"),
     amount: formData.get("amount"),
+    imputationMonth: formData.get("imputationMonth") || String(formData.get("date") ?? "").slice(0, 7),
     frequency: formData.get("frequency"),
     note: formData.get("note") || undefined,
     receiptUrl: formData.get("receiptUrl") || undefined,
@@ -39,19 +42,20 @@ export async function crearMovimiento(_prev: CrearMovimientoState, formData: For
     return { error: parsed.error.issues[0]?.message ?? "Datos inválidos" };
   }
 
-  const { categoryId, date, amount, frequency, note, receiptUrl } = parsed.data;
+  const { categoryId, date, amount, frequency, note, receiptUrl, imputationMonth } = parsed.data;
   if (!await prisma.category.findFirst({ where: { id: categoryId, archived: false }, select: { id: true } })) return { error: "La categoría ya no está disponible." };
 
-  const desde = new Date(`${date}T00:00:00.000Z`);
-  const hasta = new Date(desde.getTime() + 86400000);
+  const desde = new Date(`${imputationMonth}-01T00:00:00.000Z`);
+  const hasta = new Date(Date.UTC(desde.getUTCFullYear(), desde.getUTCMonth() + 1, 1));
   const where = {
     categoryId,
-    date: { gte: desde, lt: hasta },
+    AND: [filtroImputacion(desde, hasta)],
     OR: [{ frequency: { not: "MENSUAL" as const } }, { note: null }, { note: { not: NOTA_REGISTRO_MENSUAL } }],
   };
   const data = {
       categoryId,
       date: new Date(`${date}T12:00:00.000Z`),
+      imputationDate: desde,
       amount,
       frequency,
       note: note || null,
@@ -62,15 +66,15 @@ export async function crearMovimiento(_prev: CrearMovimientoState, formData: For
       const id = formData.get("movementId");
       if (typeof id !== "string" || !id) return { error: "Selecciona el movimiento que quieres editar." };
       const result = await prisma.movement.updateMany({ where: { ...where, id }, data });
-      if (result.count === 0) return { error: "El movimiento ya no existe o cambió de fecha o categoría. Vuelve a buscarlo." };
+      if (result.count === 0) return { error: "El movimiento ya no existe o cambió de mes o categoría. Vuelve a buscarlo." };
     } else {
       if (operation !== "add") {
         const existentes = await prisma.movement.findMany({
           where,
-          select: { id: true, amount: true, frequency: true, note: true, receiptUrl: true },
+          select: { id: true, date: true, amount: true, frequency: true, note: true, receiptUrl: true },
           orderBy: [{ createdAt: "desc" }, { id: "asc" }],
         });
-        if (existentes.length) return { existentes: existentes.map((m) => ({ ...m, amount: toNumber(m.amount) })) };
+        if (existentes.length) return { existentes: existentes.map((m) => ({ ...m, date: m.date.toISOString().slice(0, 10), amount: toNumber(m.amount) })) };
       }
       await prisma.movement.create({ data });
     }
@@ -82,6 +86,7 @@ export async function crearMovimiento(_prev: CrearMovimientoState, formData: For
   revalidatePath("/dashboard");
   revalidatePath("/presupuesto");
   revalidatePath("/egresos");
+  revalidatePath("/consejos");
   return { success: true };
 }
 

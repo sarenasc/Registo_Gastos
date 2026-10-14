@@ -5,7 +5,7 @@ Aplicación personal de control de presupuesto, gastos, costos e ingresos. Next.
 ## Módulos
 
 - **Login** — acceso con cuenta (correo/contraseña) con login propio (tabla `users` + cookie de sesión firmada). Toda la app está protegida: sin sesión, redirige a `/login`.
-- **Registro** — registrar movimientos manuales (ingresos, costos, gastos) diarios, semanales o mensuales.
+- **Registro** — registrar movimientos manuales (ingresos, costos, gastos) diarios, semanales o mensuales. En el registro diario se elige un mes de imputación independiente de la fecha: los dashboards suman el monto en ese mes. Si ya hay movimientos diarios de la misma categoría imputados a ese mes, permite editar uno o agregar otro. Los registros anteriores conservan el mes de su fecha original.
 - **Gastos y costos** — segundo dashboard en `/egresos` con selector de mes, gráfico por categoría y totales de fijos, variables y sin clasificar. Incluye movimientos diarios y registros mensuales, igual que el dashboard principal.
 - **Categorías** — menú separado en `/categorias` para clasificar gastos y costos como fijos o variables. Se guarda automáticamente, es compartido y aplica a todos los meses.
 - **Dashboard** — resumen del mes, gasto por categoría, tendencia de ingresos vs. gastos, presupuesto vs. real.
@@ -67,7 +67,7 @@ Todas las cuentas que inicien sesión ven y editan el **mismo presupuesto compar
 ## Modelo de datos (Prisma)
 
 - `Category` — nombre, tipo (`INGRESO`/`COSTO`/`GASTO`), prioridad (`ALTA`/`MEDIA`/`BAJA`), frecuencia habitual.
-- `Movement` — cada movimiento registrado (fecha, monto, frecuencia, nota).
+- `Movement` — cada movimiento registrado (fecha, mes de imputación opcional, monto, frecuencia, nota). `imputationDate` guarda el primer día del mes imputado; cuando es nulo se usa el mes de `date`.
 - `BudgetItem` — presupuesto planificado por categoría/año/mes.
 - `AdviceItem` — consejos guardados (de regla o de IA), con estado (pendiente/aplicado/descartado).
 

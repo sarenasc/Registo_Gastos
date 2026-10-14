@@ -51,18 +51,22 @@ export function RegistroForm({ categorias }: { categorias: Categoria[] }) {
   const [selectedCategoryId, setSelectedCategoryId] = useState(categorias[0]?.id ?? "");
   const selectedCategory = categorias.find((c) => c.id === selectedCategoryId);
   const [date, setDate] = useState(today);
+  const [imputationMonth, setImputationMonth] = useState(today.slice(0, 7));
+  const [customMonth, setCustomMonth] = useState(false);
   const [amount, setAmount] = useState("");
   const [frequency, setFrequency] = useState(selectedCategory?.frequency ?? "PUNTUAL");
   const [note, setNote] = useState("");
   const [operation, setOperation] = useState("");
   const [movementId, setMovementId] = useState("");
   const [searchKey, setSearchKey] = useState("");
-  const currentKey = `${selectedCategoryId}:${date}`;
+  const currentKey = `${selectedCategoryId}:${imputationMonth}`;
   const mostrarExistentes = operation === "" && searchKey === currentKey && !!state?.existentes?.length;
 
   function editarExistente(m: MovimientoExistente) {
     setOperation("edit");
     setMovementId(m.id);
+    setDate(m.date);
+    setCustomMonth(true);
     setAmount(String(m.amount));
     setFrequency(m.frequency);
     setNote(m.note ?? "");
@@ -79,6 +83,8 @@ export function RegistroForm({ categorias }: { categorias: Categoria[] }) {
       formRef.current?.reset();
       setReceiptUrl("");
       setDate(today);
+      setImputationMonth(today.slice(0, 7));
+      setCustomMonth(false);
       setAmount("");
       setNote("");
       setOperation("");
@@ -161,9 +167,25 @@ export function RegistroForm({ categorias }: { categorias: Categoria[] }) {
           value={date}
           disabled={isPending}
           required
-          onChange={(e) => { setDate(e.target.value); setOperation(""); setMovementId(""); setSearchKey(""); }}
+          onChange={(e) => {
+            setDate(e.target.value);
+            if (!customMonth && operation !== "edit") {
+              setImputationMonth(e.target.value.slice(0, 7));
+              setOperation(""); setMovementId(""); setSearchKey("");
+            }
+          }}
           className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-800"
         />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label htmlFor="imputationMonth" className="text-sm font-medium text-slate-700 dark:text-slate-300">Mes de imputación</label>
+        <input
+          id="imputationMonth" name="imputationMonth" type="month" required value={imputationMonth} disabled={isPending}
+          onChange={(e) => { setImputationMonth(e.target.value); setCustomMonth(true); setOperation(""); setMovementId(""); setSearchKey(""); }}
+          className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-800"
+        />
+        <p className="text-xs text-slate-500">El monto se suma a este mes, aunque la fecha sea de otro mes.</p>
       </div>
 
       <div className="flex flex-col gap-1">
@@ -259,12 +281,12 @@ export function RegistroForm({ categorias }: { categorias: Categoria[] }) {
 
       {mostrarExistentes && (
         <div className="rounded-lg border border-amber-300 bg-amber-50 p-4 dark:border-amber-900 dark:bg-amber-950 sm:col-span-2">
-          <p role="status" className="text-sm font-medium">Ya hay movimientos de esta categoría en esta fecha. Elige agregar otro o editar uno existente.</p>
+          <p role="status" className="text-sm font-medium">Ya hay movimientos de esta categoría imputados a {imputationMonth}. Elige agregar otro en este mes o editar uno existente.</p>
           <button type="button" disabled={isPending} onClick={() => { setOperation("add"); setMovementId(""); }} className="mt-3 rounded-md bg-emerald-600 px-3 py-2 text-sm font-medium text-white">Agregar otro movimiento</button>
           <ul className="mt-3 space-y-2">
             {state?.existentes?.map((m, index) => (
               <li key={m.id} className="flex flex-wrap items-center justify-between gap-2 rounded-md border border-amber-200 p-2 dark:border-amber-900">
-                <span className="text-sm">Registro {index + 1}: <Money value={m.amount} />{m.note ? ` · ${m.note}` : ""}{m.receiptUrl ? " · Con boleta" : ""}</span>
+                <span className="text-sm">Registro {index + 1} ({m.date}): <Money value={m.amount} />{m.note ? ` · ${m.note}` : ""}{m.receiptUrl ? " · Con boleta" : ""}</span>
                 <button type="button" disabled={isPending} onClick={() => editarExistente(m)} className="rounded-md border border-slate-300 px-3 py-1 text-sm font-medium">Editar este movimiento</button>
               </li>
             ))}

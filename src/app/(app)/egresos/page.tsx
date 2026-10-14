@@ -4,6 +4,7 @@ import { Money } from "@/components/Money";
 import { MonthSelector } from "../dashboard/MonthSelector";
 import { CategoriaBarChart } from "../dashboard/CategoriaBarChart";
 import { ComparacionEgresos } from "./ComparacionEgresos";
+import { filtroImputacion } from "@/lib/imputacion";
 
 export const dynamic = "force-dynamic";
 
@@ -18,7 +19,7 @@ export default async function EgresosPage({ searchParams }: { searchParams: Prom
     prisma.category.findMany({ where: { archived: false, type: { in: ["GASTO", "COSTO"] } }, orderBy: { name: "asc" } }),
     prisma.movement.groupBy({
       by: ["categoryId"],
-      where: { category: { archived: false, type: { in: ["GASTO", "COSTO"] } }, date: { gte: new Date(Date.UTC(year, month - 1, 1)), lt: new Date(Date.UTC(year, month, 1)) } },
+      where: { category: { archived: false, type: { in: ["GASTO", "COSTO"] } }, ...filtroImputacion(new Date(Date.UTC(year, month - 1, 1)), new Date(Date.UTC(year, month, 1))) },
       _sum: { amount: true },
     }),
   ]);

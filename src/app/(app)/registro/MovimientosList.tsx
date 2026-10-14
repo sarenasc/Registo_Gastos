@@ -9,6 +9,7 @@ import { TIPO_LABEL } from "@/lib/constants";
 type Movimiento = {
   id: string;
   date: Date;
+  imputationDate: Date | null;
   amount: unknown;
   note: string | null;
   receiptUrl: string | null;
@@ -35,6 +36,7 @@ export function MovimientosList({ movimientos }: { movimientos: Movimiento[] }) 
             </p>
             <p className="truncate text-xs text-slate-500 dark:text-slate-400">
               {new Date(m.date).toLocaleDateString("es-CL", { timeZone: "UTC" })}
+              {` · Imputado a ${new Date(m.imputationDate ?? m.date).toLocaleDateString("es-CL", { month: "long", year: "numeric", timeZone: "UTC" })}`}
               {m.note ? ` · ${m.note}` : ""}
             </p>
           </div>

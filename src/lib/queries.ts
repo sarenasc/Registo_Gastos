@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { toNumber } from "@/lib/format";
 import { obtenerPlanParaComparar } from "@/lib/presupuesto";
+import { filtroImputacion } from "@/lib/imputacion";
 
 export async function getCategorias() {
   return prisma.category.findMany({
@@ -44,7 +45,7 @@ export async function getMovimientosMensualesAnio(year: number) {
 
 export async function getMovimientosRango(desde: Date, hasta: Date) {
   const rows = await prisma.movement.findMany({
-    where: { date: { gte: desde, lt: hasta }, category: { archived: false } },
+    where: { ...filtroImputacion(desde, hasta), category: { archived: false } },
     include: { category: true },
     orderBy: { date: "desc" },
   });
