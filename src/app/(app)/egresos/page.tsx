@@ -3,7 +3,7 @@ import { toNumber } from "@/lib/format";
 import { Money } from "@/components/Money";
 import { MonthSelector } from "../dashboard/MonthSelector";
 import { CategoriaBarChart } from "../dashboard/CategoriaBarChart";
-import Link from "next/link";
+import { ComparacionEgresos } from "./ComparacionEgresos";
 
 export const dynamic = "force-dynamic";
 
@@ -48,29 +48,11 @@ export default async function EgresosPage({ searchParams }: { searchParams: Prom
         ))}
       </div>
       <CategoriaBarChart items={items} />
-      <div className={panel}>
-        <h2 className="text-lg font-semibold">Detalle de egresos</h2>
-        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">La clasificación se administra en el menú <Link href="/categorias" className="font-medium text-emerald-700 underline dark:text-emerald-400">Categorías</Link>.</p>
-        <p className="mt-1 text-xs text-slate-500">Los montos incluyen los movimientos diarios y el registro mensual, igual que el dashboard principal.</p>
-        {items.length === 0 ? <p className="mt-4 text-sm text-slate-500">Aún no hay categorías de gastos o costos.</p> : (
-          <div className="mt-4 overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead><tr className="border-b border-slate-200 dark:border-slate-800">
-                <th scope="col" className="p-2">Categoría</th><th scope="col" className="p-2">Tipo</th><th scope="col" className="p-2">Fijo / variable</th><th scope="col" className="p-2 text-right">Real del mes</th>
-              </tr></thead>
-              <tbody>{items.map((item) => (
-                <tr key={item.id} className="border-b border-slate-100 last:border-0 dark:border-slate-800">
-                  <td className="p-2">{item.name}{item.archived && <span className="ml-2 text-xs text-slate-500">Archivada</span>}</td>
-                  <td className="p-2">{item.type === "COSTO" ? "Costo" : "Gasto"}</td>
-                  <td className="p-2">{item.naturaleza === "FIJO" ? "Fijo" : item.naturaleza === "VARIABLE" ? "Variable" : "Sin clasificar"}</td>
-                  <td className="p-2 text-right font-medium"><Money value={item.real} /></td>
-                </tr>
-              ))}</tbody>
-              <tfoot><tr><th scope="row" colSpan={3} className="p-2">Total</th><td className="p-2 text-right font-semibold"><Money value={total} /></td></tr></tfoot>
-            </table>
-          </div>
-        )}
-      </div>
+      <ComparacionEgresos
+        fijos={items.filter((i) => i.naturaleza === "FIJO").reduce((sum, i) => sum + i.real, 0)}
+        variables={items.filter((i) => i.naturaleza === "VARIABLE").reduce((sum, i) => sum + i.real, 0)}
+        sinClasificar={items.filter((i) => i.naturaleza === null).reduce((sum, i) => sum + i.real, 0)}
+      />
     </div>
   );
 }
