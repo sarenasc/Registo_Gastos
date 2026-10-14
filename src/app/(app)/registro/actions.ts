@@ -40,6 +40,7 @@ export async function crearMovimiento(_prev: CrearMovimientoState, formData: For
   }
 
   const { categoryId, date, amount, frequency, note, receiptUrl } = parsed.data;
+  if (!await prisma.category.findFirst({ where: { id: categoryId, archived: false }, select: { id: true } })) return { error: "La categoría ya no está disponible." };
 
   const desde = new Date(`${date}T00:00:00.000Z`);
   const hasta = new Date(desde.getTime() + 86400000);
@@ -99,9 +100,10 @@ const categoriaSchema = z.object({
   frequency: z.enum(["DIARIA", "SEMANAL", "MENSUAL", "ANUAL", "PUNTUAL"]),
 });
 
-export type CrearCategoriaState = { error?: string } | undefined;
+export type CrearCategoriaState = { error?: string; ok?: string } | undefined;
 
 export async function crearCategoria(_prev: CrearCategoriaState, formData: FormData): Promise<CrearCategoriaState> {
+  if (!await getSession()) return { error: "Inicia sesión para crear categorías." };
   const parsed = categoriaSchema.safeParse({
     name: formData.get("name"),
     type: formData.get("type"),
@@ -122,5 +124,8 @@ export async function crearCategoria(_prev: CrearCategoriaState, formData: FormD
   revalidatePath("/registro");
   revalidatePath("/registro/mensual");
   revalidatePath("/presupuesto");
-  return undefined;
+  revalidatePath("/categorias");
+  revalidatePath("/dashboard");
+  revalidatePath("/egresos");
+  return { ok: "Categoría creada." };
 }

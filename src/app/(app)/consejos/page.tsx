@@ -13,6 +13,7 @@ export default async function ConsejosPage() {
   const [totales, consejosRaw] = await Promise.all([
     getTotalesPorCategoria(now.getFullYear(), now.getMonth() + 1),
     prisma.adviceItem.findMany({
+      where: { OR: [{ categoryId: null }, { category: { archived: false } }] },
       include: { category: true },
       orderBy: [{ status: "asc" }, { createdAt: "desc" }],
       take: 40,

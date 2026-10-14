@@ -15,6 +15,7 @@ export async function getCategorias() {
 
 export async function getMovimientos(limit = 30) {
   const rows = await prisma.movement.findMany({
+    where: { category: { archived: false } },
     include: { category: true },
     orderBy: { date: "desc" },
     take: limit,
@@ -33,6 +34,7 @@ export async function getMovimientosMensualesAnio(year: number) {
   const rows = await prisma.movement.findMany({
     where: {
       frequency: "MENSUAL",
+      category: { archived: false },
       note: NOTA_REGISTRO_MENSUAL,
       date: { gte: new Date(Date.UTC(year, 0, 1)), lt: new Date(Date.UTC(year + 1, 0, 1)) },
     },
@@ -42,7 +44,7 @@ export async function getMovimientosMensualesAnio(year: number) {
 
 export async function getMovimientosRango(desde: Date, hasta: Date) {
   const rows = await prisma.movement.findMany({
-    where: { date: { gte: desde, lt: hasta } },
+    where: { date: { gte: desde, lt: hasta }, category: { archived: false } },
     include: { category: true },
     orderBy: { date: "desc" },
   });

@@ -74,6 +74,7 @@ export function NuevaCategoriaForm() {
         cancelar
       </button>
       {state?.error && <p className="w-full text-sm text-red-600">{state.error}</p>}
+      {state?.ok && <p role="status" className="w-full text-sm text-emerald-700">{state.ok}</p>}
     </form>
   );
 }

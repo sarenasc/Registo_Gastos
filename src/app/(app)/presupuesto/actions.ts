@@ -87,7 +87,7 @@ export async function importarPresupuestoExcel(
   }
   if (celdas.length === 0) return { error: "No encontré meses con valores. Usa un archivo exportado desde Presupuesto." };
 
-  const categorias = await prisma.category.findMany({ select: { id: true, name: true } });
+  const categorias = await prisma.category.findMany({ where: { archived: false }, select: { id: true, name: true } });
   const porNombre = new Map(categorias.map((c) => [normalizar(c.name), c.id]));
 
   const ignoradas = new Set<string>();

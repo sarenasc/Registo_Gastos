@@ -15,15 +15,15 @@ export default async function EgresosPage({ searchParams }: { searchParams: Prom
   const year = Number.isInteger(requestedYear) && requestedYear >= 1900 && requestedYear <= 9999 ? requestedYear : now.getFullYear();
   const month = Number.isInteger(requestedMonth) && requestedMonth >= 1 && requestedMonth <= 12 ? requestedMonth : now.getMonth() + 1;
   const [categories, movements] = await Promise.all([
-    prisma.category.findMany({ where: { type: { in: ["GASTO", "COSTO"] } }, orderBy: { name: "asc" } }),
+    prisma.category.findMany({ where: { archived: false, type: { in: ["GASTO", "COSTO"] } }, orderBy: { name: "asc" } }),
     prisma.movement.groupBy({
       by: ["categoryId"],
-      where: { category: { type: { in: ["GASTO", "COSTO"] } }, date: { gte: new Date(Date.UTC(year, month - 1, 1)), lt: new Date(Date.UTC(year, month, 1)) } },
+      where: { category: { archived: false, type: { in: ["GASTO", "COSTO"] } }, date: { gte: new Date(Date.UTC(year, month - 1, 1)), lt: new Date(Date.UTC(year, month, 1)) } },
       _sum: { amount: true },
     }),
   ]);
   const totals = new Map(movements.map((m) => [m.categoryId, toNumber(m._sum.amount ?? 0)]));
-  const items = categories.filter((c) => !c.archived || totals.has(c.id)).map((c) => ({
+  const items = categories.map((c) => ({
     ...c, real: totals.get(c.id) ?? 0, nombre: c.name, tipo: c.type, prioridad: c.priority,
   }));
   const total = items.reduce((sum, item) => sum + item.real, 0);
