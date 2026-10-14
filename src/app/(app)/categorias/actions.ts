@@ -15,6 +15,7 @@ export async function clasificarEgreso(categoryId: string, naturaleza: string): 
     });
     if (result.count === 0) return { error: "No se encontró la categoría." };
     revalidatePath("/egresos");
+    revalidatePath("/categorias");
     return {};
   } catch {
     return { error: "No se pudo guardar la clasificación. Intenta nuevamente." };

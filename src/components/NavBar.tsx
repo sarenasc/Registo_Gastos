@@ -11,6 +11,7 @@ const LINKS = [
   { href: "/registro", label: "Registro", icon: NotebookPen },
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/egresos", label: "Gastos y costos", icon: Wallet },
+  { href: "/categorias", label: "Categorías", icon: NotebookPen },
   { href: "/presupuesto", label: "Presupuesto", icon: PiggyBank },
   { href: "/consejos", label: "Consejos", icon: Lightbulb },
   { href: "/bencina", label: "Bencina", icon: Fuel },

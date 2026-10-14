@@ -6,7 +6,8 @@ Aplicación personal de control de presupuesto, gastos, costos e ingresos. Next.
 
 - **Login** — acceso con cuenta (correo/contraseña) con login propio (tabla `users` + cookie de sesión firmada). Toda la app está protegida: sin sesión, redirige a `/login`.
 - **Registro** — registrar movimientos manuales (ingresos, costos, gastos) diarios, semanales o mensuales.
-- **Gastos y costos** — segundo dashboard en /egresos con selector de mes, gráfico por categoría, totales de fijos, variables y sin clasificar, y clasificación editable por categoría. La clasificación es compartida y aplica a todos los meses. Incluye movimientos diarios y registros mensuales, igual que el dashboard principal. La migración se aplica automáticamente durante el build.
+- **Gastos y costos** — segundo dashboard en `/egresos` con selector de mes, gráfico por categoría y totales de fijos, variables y sin clasificar. Incluye movimientos diarios y registros mensuales, igual que el dashboard principal.
+- **Categorías** — menú separado en `/categorias` para clasificar gastos y costos como fijos o variables. Se guarda automáticamente, es compartido y aplica a todos los meses.
 - **Dashboard** — resumen del mes, gasto por categoría, tendencia de ingresos vs. gastos, presupuesto vs. real.
 - **Presupuesto** — define el presupuesto mensual por categoría y clasifica cada categoría (tipo: ingreso/costo/gasto, prioridad: alta/media/baja).
 - **Consejos** — alertas automáticas (categorías sobre presupuesto o de baja prioridad con gasto) + un agente de IA que busca en internet alternativas más baratas (ej. planes de celular/internet) usando la API de Claude.
