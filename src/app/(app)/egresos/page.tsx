@@ -48,7 +48,28 @@ export default async function EgresosPage({ searchParams }: { searchParams: Prom
           </div>
         ))}
       </div>
-      <CategoriaBarChart items={items} />
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <CategoriaBarChart
+          items={items.filter((i) => i.naturaleza === "FIJO")}
+          titulo="Gastos y costos fijos por categoría (top 10)"
+          alcance="total de gastos y costos fijos del mes"
+          color="#6366f1"
+        />
+        <CategoriaBarChart
+          items={items.filter((i) => i.naturaleza === "VARIABLE")}
+          titulo="Gastos y costos variables por categoría (top 10)"
+          alcance="total de gastos y costos variables del mes"
+          color="#f59e0b"
+        />
+      </div>
+      {items.some((i) => i.naturaleza === null && i.real > 0) && (
+        <CategoriaBarChart
+          items={items.filter((i) => i.naturaleza === null)}
+          titulo="Pendientes de clasificar por categoría (top 10)"
+          alcance="total pendiente de clasificar del mes"
+          color="#94a3b8"
+        />
+      )}
       <ComparacionEgresos
         fijos={items.filter((i) => i.naturaleza === "FIJO").reduce((sum, i) => sum + i.real, 0)}
         variables={items.filter((i) => i.naturaleza === "VARIABLE").reduce((sum, i) => sum + i.real, 0)}

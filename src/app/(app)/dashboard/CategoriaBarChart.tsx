@@ -9,7 +9,7 @@ type Item = { nombre: string; tipo: string; real: number; prioridad: string };
 
 const PRIORIDAD_OPACITY: Record<string, number> = { ALTA: 1, MEDIA: 0.75, BAJA: 0.5 };
 
-export function CategoriaBarChart({ items }: { items: Item[] }) {
+export function CategoriaBarChart({ items, titulo = "Gasto por categoría (top 10)", alcance = "total de gastos del mes", color = CHART.sequential }: { items: Item[]; titulo?: string; alcance?: string; color?: string }) {
   const { hidden } = usePrivacy();
   const gastos = items.filter((i) => i.tipo !== "INGRESO" && i.real > 0);
   const totalGastos = gastos.reduce((acc, i) => acc + i.real, 0);
@@ -23,7 +23,7 @@ export function CategoriaBarChart({ items }: { items: Item[] }) {
   if (top.length === 0) {
     return (
       <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800">
-        <h3 className="mb-3 text-sm font-semibold text-slate-900">Gasto por categoría (top 10)</h3>
+        <h3 className="mb-3 text-sm font-semibold text-slate-900">{titulo}</h3>
         <p className="text-sm text-slate-500">Sin gastos este mes.</p>
       </div>
     );
@@ -31,7 +31,7 @@ export function CategoriaBarChart({ items }: { items: Item[] }) {
 
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800">
-      <h3 className="mb-3 text-sm font-semibold text-slate-900">Gasto por categoría (top 10)</h3>
+      <h3 className="mb-3 text-sm font-semibold text-slate-900">{titulo}</h3>
       <ResponsiveContainer width="100%" height={320}>
         <BarChart data={top} layout="vertical" margin={{ top: 4, right: 44, bottom: 0, left: 8 }}>
           <CartesianGrid stroke={CHART.grid} horizontal={false} />
@@ -49,7 +49,7 @@ export function CategoriaBarChart({ items }: { items: Item[] }) {
           />
           <Bar dataKey="real" name="Gasto real" radius={[0, 4, 4, 0]}>
             {top.map((item) => (
-              <Cell key={item.nombre} fill={CHART.sequential} fillOpacity={PRIORIDAD_OPACITY[item.prioridad] ?? 0.75} />
+              <Cell key={item.nombre} fill={color} fillOpacity={PRIORIDAD_OPACITY[item.prioridad] ?? 0.75} />
             ))}
             <LabelList
               dataKey="pct"
@@ -60,7 +60,7 @@ export function CategoriaBarChart({ items }: { items: Item[] }) {
           </Bar>
         </BarChart>
       </ResponsiveContainer>
-      <p className="mt-2 text-xs text-slate-400">Color más intenso = prioridad más alta. % = participación en el total de gastos del mes.</p>
+      <p className="mt-2 text-xs text-slate-400">Color más intenso = prioridad más alta. % = participación en el {alcance}.</p>
     </div>
   );
 }
