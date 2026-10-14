@@ -14,6 +14,11 @@ enum TipoCategoria {
   GASTO
 }
 
+enum NaturalezaEgreso {
+  FIJO
+  VARIABLE
+}
+
 enum Prioridad {
   ALTA
   MEDIA
@@ -58,6 +63,7 @@ model Category {
   frequency Frecuencia    @default(MENSUAL)
   color     String?
   archived  Boolean       @default(false)
+  naturaleza NaturalezaEgreso?
   createdAt DateTime      @default(now())
 
   movements   Movement[]
