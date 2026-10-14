@@ -2,7 +2,8 @@
 
 import { useActionState, useEffect, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
-import { crearMovimiento, type CrearMovimientoState } from "./actions";
+import { crearMovimiento, type CrearMovimientoState, type MovimientoExistente } from "./actions";
+import { Money } from "@/components/Money";
 import { Camera, Loader2, X } from "lucide-react";
 import { FRECUENCIA_LABEL, TIPO_LABEL } from "@/lib/constants";
 
@@ -29,7 +30,7 @@ async function comprimirFoto(file: File): Promise<Blob> {
 
 type Categoria = { id: string; name: string; type: string; frequency: string };
 
-function SubmitButton({ bloqueado }: { bloqueado: boolean }) {
+function SubmitButton({ bloqueado, operation }: { bloqueado: boolean; operation: string }) {
   const { pending } = useFormStatus();
   return (
     <button
@@ -37,7 +38,7 @@ function SubmitButton({ bloqueado }: { bloqueado: boolean }) {
       disabled={pending || bloqueado}
       className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-emerald-700 disabled:opacity-60"
     >
-      {pending ? "Guardando..." : "Registrar movimiento"}
+      {pending ? "Guardando..." : operation === "edit" ? "Guardar cambios" : operation === "add" ? "Agregar nuevo movimiento" : "Registrar movimiento"}
     </button>
   );
 }
@@ -49,6 +50,24 @@ export function RegistroForm({ categorias }: { categorias: Categoria[] }) {
   const today = new Date().toISOString().slice(0, 10);
   const [selectedCategoryId, setSelectedCategoryId] = useState(categorias[0]?.id ?? "");
   const selectedCategory = categorias.find((c) => c.id === selectedCategoryId);
+  const [date, setDate] = useState(today);
+  const [amount, setAmount] = useState("");
+  const [frequency, setFrequency] = useState(selectedCategory?.frequency ?? "PUNTUAL");
+  const [note, setNote] = useState("");
+  const [operation, setOperation] = useState("");
+  const [movementId, setMovementId] = useState("");
+  const [searchKey, setSearchKey] = useState("");
+  const currentKey = `${selectedCategoryId}:${date}`;
+  const mostrarExistentes = operation === "" && searchKey === currentKey && !!state?.existentes?.length;
+
+  function editarExistente(m: MovimientoExistente) {
+    setOperation("edit");
+    setMovementId(m.id);
+    setAmount(String(m.amount));
+    setFrequency(m.frequency);
+    setNote(m.note ?? "");
+    setReceiptUrl(m.receiptUrl ?? "");
+  }
 
   const [receiptUrl, setReceiptUrl] = useState("");
   const [subiendo, setSubiendo] = useState(false);
@@ -56,12 +75,18 @@ export function RegistroForm({ categorias }: { categorias: Categoria[] }) {
 
   // Solo limpia el formulario cuando la acción termina SIN error (no al enviar).
   useEffect(() => {
-    if (wasPending.current && !isPending && !state?.error) {
+    if (wasPending.current && !isPending && state?.success) {
       formRef.current?.reset();
       setReceiptUrl("");
+      setDate(today);
+      setAmount("");
+      setNote("");
+      setOperation("");
+      setMovementId("");
+      setSearchKey("");
     }
     wasPending.current = isPending;
-  }, [isPending, state]);
+  }, [isPending, state, today]);
 
   async function subirFoto(file: File | undefined) {
     if (!file) return;
@@ -94,8 +119,11 @@ export function RegistroForm({ categorias }: { categorias: Categoria[] }) {
     <form
       ref={formRef}
       action={formAction}
+      onSubmit={() => setSearchKey(currentKey)}
       className="grid grid-cols-1 gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:grid-cols-2"
     >
+      <input type="hidden" name="operation" value={operation} />
+      <input type="hidden" name="movementId" value={movementId} />
       <div className="flex flex-col gap-1">
         <label htmlFor="categoryId" className="text-sm font-medium text-slate-700 dark:text-slate-300">
           Categoría
@@ -104,7 +132,14 @@ export function RegistroForm({ categorias }: { categorias: Categoria[] }) {
           id="categoryId"
           name="categoryId"
           value={selectedCategoryId}
-          onChange={(e) => setSelectedCategoryId(e.target.value)}
+          disabled={isPending}
+          onChange={(e) => {
+            setSelectedCategoryId(e.target.value);
+            setFrequency(categorias.find((c) => c.id === e.target.value)?.frequency ?? "PUNTUAL");
+            setOperation("");
+            setMovementId("");
+            setSearchKey("");
+          }}
           className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-800"
         >
           {categorias.map((c) => (
@@ -123,7 +158,10 @@ export function RegistroForm({ categorias }: { categorias: Categoria[] }) {
           id="date"
           name="date"
           type="date"
-          defaultValue={today}
+          value={date}
+          disabled={isPending}
+          required
+          onChange={(e) => { setDate(e.target.value); setOperation(""); setMovementId(""); setSearchKey(""); }}
           className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-800"
         />
       </div>
@@ -140,6 +178,9 @@ export function RegistroForm({ categorias }: { categorias: Categoria[] }) {
           step="1"
           placeholder="0"
           required
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          disabled={isPending}
           className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-800"
         />
       </div>
@@ -151,7 +192,9 @@ export function RegistroForm({ categorias }: { categorias: Categoria[] }) {
         <select
           id="frequency"
           name="frequency"
-          defaultValue={selectedCategory?.frequency ?? "PUNTUAL"}
+          value={frequency}
+          onChange={(e) => setFrequency(e.target.value)}
+          disabled={isPending}
           className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-800"
         >
           {Object.entries(FRECUENCIA_LABEL).map(([value, label]) => (
@@ -170,6 +213,9 @@ export function RegistroForm({ categorias }: { categorias: Categoria[] }) {
           id="note"
           name="note"
           type="text"
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+          disabled={isPending}
           placeholder="Ej: compra semanal supermercado"
           className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-800"
         />
@@ -211,8 +257,25 @@ export function RegistroForm({ categorias }: { categorias: Categoria[] }) {
 
       {state?.error && <p className="text-sm text-red-600 sm:col-span-2">{state.error}</p>}
 
+      {mostrarExistentes && (
+        <div className="rounded-lg border border-amber-300 bg-amber-50 p-4 dark:border-amber-900 dark:bg-amber-950 sm:col-span-2">
+          <p role="status" className="text-sm font-medium">Ya hay movimientos de esta categoría en esta fecha. Elige agregar otro o editar uno existente.</p>
+          <button type="button" disabled={isPending} onClick={() => { setOperation("add"); setMovementId(""); }} className="mt-3 rounded-md bg-emerald-600 px-3 py-2 text-sm font-medium text-white">Agregar otro movimiento</button>
+          <ul className="mt-3 space-y-2">
+            {state?.existentes?.map((m, index) => (
+              <li key={m.id} className="flex flex-wrap items-center justify-between gap-2 rounded-md border border-amber-200 p-2 dark:border-amber-900">
+                <span className="text-sm">Registro {index + 1}: <Money value={m.amount} />{m.note ? ` · ${m.note}` : ""}{m.receiptUrl ? " · Con boleta" : ""}</span>
+                <button type="button" disabled={isPending} onClick={() => editarExistente(m)} className="rounded-md border border-slate-300 px-3 py-1 text-sm font-medium">Editar este movimiento</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {operation === "edit" && <p role="status" className="text-sm text-emerald-700 dark:text-emerald-400 sm:col-span-2">Estás editando un movimiento existente. Revisa sus datos y pulsa Guardar cambios.</p>}
+      {state?.success && !isPending && !amount && <p role="status" className="text-sm text-emerald-700 sm:col-span-2">Movimiento guardado.</p>}
+
       <div className="sm:col-span-2">
-        <SubmitButton bloqueado={subiendo} />
+        <SubmitButton bloqueado={subiendo || mostrarExistentes} operation={operation} />
       </div>
     </form>
   );
